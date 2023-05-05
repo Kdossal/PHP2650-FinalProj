@@ -1,0 +1,153 @@
+#####################################################################
+                            TESTING MODELS 
+#####################################################################
+
+## MODEL 0 ##
+
+B_size = 64, Layers: 256 -> 32 -> 5
+
+Episode: 100, % Stablized: 0.23, Avg Time Taken: 9.28
+Episode: 200, % Stablized: 0.38, Avg Time Taken: 8.45
+Episode: 300, % Stablized: 0.67, Avg Time Taken: 7.23
+Episode: 400, % Stablized: 0.62, Avg Time Taken: 8.02
+Episode: 500, % Stablized: 0.7, Avg Time Taken: 7.79
+Episode: 600, % Stablized: 0.76, Avg Time Taken: 7.15
+Episode: 700, % Stablized: 0.79, Avg Time Taken: 7.54
+Episode: 800, % Stablized: 0.77, Avg Time Taken: 7.69
+Episode: 900, % Stablized: 0.87, Avg Time Taken: 7.0
+Episode: 1000, % Stablized: 0.91, Avg Time Taken: 6.16
+
+avg_reward = [-1.35, 1.11, 5.56, 5.37, 6.25, 7.09, 7.51, 7.02, 8.39, 8.83]
+
+## MODEL 1 ##
+
+B_size = 64, Layers: 512 -> 64 -> 5
+
+Episode: 100, % Stablized: 0.25, Avg Time Taken: 9.85
+Episode: 200, % Stablized: 0.28, Avg Time Taken: 9.54
+Episode: 300, % Stablized: 0.35, Avg Time Taken: 9.1
+Episode: 400, % Stablized: 0.46, Avg Time Taken: 8.64
+Episode: 500, % Stablized: 0.4, Avg Time Taken: 9.21
+Episode: 600, % Stablized: 0.54, Avg Time Taken: 8.31
+Episode: 700, % Stablized: 0.55, Avg Time Taken: 7.67
+Episode: 800, % Stablized: 0.57, Avg Time Taken: 8.39
+Episode: 900, % Stablized: 0.67, Avg Time Taken: 7.69
+Episode: 1000, % Stablized: 0.84, Avg Time Taken: 6.33
+
+avg_reward = [-1.04, 1.09, 1.77, 3.34, 2.95, 4.4, 3.97, 4.82, 6.01, 7.97]
+
+## MODEL 2 ##
+
+B_size = 64, Layers: 128 -> 32 -> 5
+
+Episode: 100, % Stablized: 0.21, Avg Time Taken: 9.44
+Episode: 200, % Stablized: 0.17, Avg Time Taken: 9.81
+Episode: 300, % Stablized: 0.23, Avg Time Taken: 9.66
+Episode: 400, % Stablized: 0.44, Avg Time Taken: 7.73
+Episode: 500, % Stablized: 0.54, Avg Time Taken: 7.55
+Episode: 600, % Stablized: 0.6, Avg Time Taken: 7.95
+Episode: 700, % Stablized: 0.64, Avg Time Taken: 7.26
+Episode: 800, % Stablized: 0.71, Avg Time Taken: 6.94
+Episode: 900, % Stablized: 0.76, Avg Time Taken: 7.16
+Episode: 1000, % Stablized: 0.81, Avg Time Taken: 6.9
+
+avg_reward = [-1.39, -1.83, -0.99, 1.95, 3.32, 4.97, 5.5, 6.45, 6.91, 7.73]
+
+
+## MODEL 3 ##
+
+B_size = 64, Layers: 256 -> 32 -> 16 -> 5
+
+Episode: 100, % Stablized: 0.32, Avg Time Taken: 8.04
+Episode: 200, % Stablized: 0.39, Avg Time Taken: 8.15
+Episode: 300, % Stablized: 0.43, Avg Time Taken: 8.58
+Episode: 400, % Stablized: 0.53, Avg Time Taken: 8.12
+Episode: 500, % Stablized: 0.64, Avg Time Taken: 7.31
+Episode: 600, % Stablized: 0.66, Avg Time Taken: 7.55
+Episode: 700, % Stablized: 0.66, Avg Time Taken: 7.48
+Episode: 800, % Stablized: 0.73, Avg Time Taken: 7.1
+Episode: 900, % Stablized: 0.77, Avg Time Taken: 6.82
+Episode: 1000, % Stablized: 0.74, Avg Time Taken: 6.93
+
+avg_reward = [-1.17, 1.4, 2.38, 3.66, 5.59, 5.54, 6.17, 6.94, 7.47, 6.87]
+
+
+############################################################################
+                    HYPERPARAMETER TUNING USING MODEL 0 
+############################################################################
+
+
+B_size = 32 (WORSE)
+
+Episode: 100, % Stablized: 0.25, Avg Time Taken: 9.63
+Episode: 200, % Stablized: 0.18, Avg Time Taken: 7.26
+Episode: 300, % Stablized: 0.16, Avg Time Taken: 7.57
+Episode: 400, % Stablized: 0.19, Avg Time Taken: 6.93
+Episode: 500, % Stablized: 0.23, Avg Time Taken: 6.32
+Episode: 600, % Stablized: 0.27, Avg Time Taken: 6.07
+Episode: 700, % Stablized: 0.18, Avg Time Taken: 7.21
+Episode: 800, % Stablized: 0.36, Avg Time Taken: 5.53
+Episode: 900, % Stablized: 0.37, Avg Time Taken: 7.64
+Episode: 1000, % Stablized: 0.3, Avg Time Taken: 7.17
+
+avg_reward = [-1.31,-4.6,-5.45,-4.4,-4.14,-3.25,-3.88,-2.17,-0.62,-2.29]
+
+2000 Epochs
+
+Episode: 250, % Stablized: 0.425, Avg Time Taken: 8.325
+Episode: 500, % Stablized: 0.68, Avg Time Taken: 6.715
+Episode: 750, % Stablized: 0.795, Avg Time Taken: 6.115
+Episode: 1000, % Stablized: 0.855, Avg Time Taken: 6.185
+*Episode: 1250, % Stablized: 0.93, Avg Time Taken: 6.435*      (BEST)
+Episode: 1500, % Stablized: 0.87, Avg Time Taken: 6.28
+Episode: 1750, % Stablized: 0.83, Avg Time Taken: 6.905
+Episode: 2000, % Stablized: 0.91, Avg Time Taken: 5.835
+
+avg_reward = [1.94 5.545, 7.065, 7.445, 8.765, 8.965, *9.04*, 8.48, 7.815, 8.69]
+
+
+############################################################################
+                                RESULTS 
+############################################################################
+
+OPTIMAL MODEL: (Trained for 22min)
+
+ARCHITECTURE: Model 0
+Batch Size: 64 -- Increasing would increase run time too much
+# Episode Trained: 1250
+
+########################################################
+#######                  TESTING                 #######
+########################################################
+
+--Agent Takes Steps till Patient is Stabilized or Dead--
+
+Overall Statistics
+% Stabilized: 0.89
+% Dead: 0.11
+Avg # Steps: 10.167
+
+SIRS Patients
+% Stabilized: 0.96 
+% Dead: 0.04
+Avg # Steps: 4.524
+
+Sepsis Patients
+% Stabilized: 0.91 
+% Dead: 0.09
+Avg # Steps: 9.489
+
+Severe Sepsis Patients
+% Stabilized: 0.86 
+% Dead: 0.14
+Avg # Steps: 12.445
+
+Sepsis Shock Patients
+% Stabilized: 0.72
+% Dead: 0.28
+Avg # Steps: 15.477
+
+
+
+
+
