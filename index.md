@@ -19,18 +19,7 @@ $$X - Y = \sin(x)$$
 | 1 | 4 | 5 |
 | 2 | 3 | 6 |
 
-<table>
-  <tr>
-    <th>Model 1 </th>
-    <th>Model 2</th>
-    <th>Model 3</th>
-  </tr>
-  <tr>
-    <td>1</td>
-    <td>2</td>
-    <td>3</td>
-  </tr>
-</table>
+
 
 
 <table>
@@ -128,6 +117,19 @@ diuretic therapy</td>
 <td>histologic stage of disease (needs biopsy)</td>
 </tr>
 </tbody>
+</table>
+
+<table>
+  <tr>
+    <th>Model 1 </th>
+    <th>Model 2</th>
+    <th>Model 3</th>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>2</td>
+    <td>3</td>
+  </tr>
 </table>
 
 
