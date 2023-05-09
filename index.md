@@ -20,7 +20,7 @@ $$X - Y = \sin(x)$$
 | 2 | 3 | 6 |
 
 
-
+![](../Media/patient-treatment.gif)
 
 <table>
 <colgroup>
