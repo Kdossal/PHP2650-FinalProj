@@ -8,7 +8,7 @@
 
 ### **Test Test**
 
-kadl \\(\X = Y \epsilon\\)
+kadl $$X = Y \epsilon$$
 
 adfaskdka
 
