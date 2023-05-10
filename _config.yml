@@ -1,5 +1,7 @@
 theme: jekyll-theme-slate
 title: Reinforcement Learning for Sepsis Patient Treatment
 description: Kameel Dossal and Neha Narayan 
-baseurl: ''
-url: 'https://kdossal.github.io/PHP2650-FinalProj/'
+
+markdown: kramdown
+kramdown:
+    math_engine: katex
