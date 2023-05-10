@@ -19,8 +19,11 @@ $$X - Y = \sin(x)$$
 | 1 | 4 | 5 |
 | 2 | 3 | 6 |
 
+<figure>
+<img src="Media/patient-treatment.gif" />
+</figure>
 
-
+![](https://github.com/Kdossal/PHP2650-FinalProj/blob/main/Media/patient-treatment.gif)
 
 <table>
 <colgroup>
