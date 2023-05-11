@@ -10,10 +10,10 @@ We’ve previously discussed supervised learning, which is used for tasks where 
 For our final project, we created a reinforcement learning model that takes in medical information from simulated sepsis patients and makes a series of treatment decisions with the goal of stabilizing the patient so that they do not die of septic shock. Before discussing the specifics of our model implementation, let’s review some reinforcement learning basics in the context of the problem we want to solve with our project. 
 
 The most basic type of reinforcement learning has 4 elements: 
-**Agent:** The agent is the decision-making model that interacts with our environment. In our case, this is our Deep Q-Network that takes in information about an environment, called a state, and selects an action based on the information in that state. This agent will then over time learn from the feedback it receives in the form of rewards or punishments.
-**Environment:** The environment in our model is the simulated patient, with a state that contains information concerning patient vitals (such as their blood pressure, temperature, or heart rate), as well as patient demographics when they enter the treatment facility. After each action the agent takes, the environment’s state changes accordingly. 
-**Actions:** A set of actions that the agent can take. In our case, the model can take five possible actions: administer antipyretics, antibiotics, fluids, vasopressors, or oxygen therapy. The goal of reinforcement learning is to train the model such that the action it takes in response to an input state is the optimal action for that situation. For example, if the input state to our model was a patient with a high fever, our goal would be for the model to take the action: administer antipyretics. 
-**Reward:** After an action transitions the environment from state $$s$$ to state $$s’$$, the model receives a reward (or punishment) depending on whether $$s’$$ is a desired outcome or not. In our model, the reward is set to 10 if an action leads to the patient being stabilized (stage 0), -10 if the patient is dead (as defined by vitals or the number of time steps the patient has spent with sepsis), and -1 if the patient is alive but not stabilized. These values were chosen to encourage the agent to quickly stabilize patients without overtreating them.
+1. **Agent:** The agent is the decision-making model that interacts with our environment. In our case, this is our Deep Q-Network that takes in information about an environment, called a state, and selects an action based on the information in that state. This agent will then over time learn from the feedback it receives in the form of rewards or punishments.
+2. **Environment:** The environment in our model is the simulated patient, with a state that contains information concerning patient vitals (such as their blood pressure, temperature, or heart rate), as well as patient demographics when they enter the treatment facility. After each action the agent takes, the environment’s state changes accordingly. 
+3. **Actions:** A set of actions that the agent can take. In our case, the model can take five possible actions: administer antipyretics, antibiotics, fluids, vasopressors, or oxygen therapy. The goal of reinforcement learning is to train the model such that the action it takes in response to an input state is the optimal action for that situation. For example, if the input state to our model was a patient with a high fever, our goal would be for the model to take the action: administer antipyretics. 
+4. **Reward:** After an action transitions the environment from state $$s$$ to state $$s’$$, the model receives a reward (or punishment) depending on whether $$s’$$ is a desired outcome or not. In our model, the reward is set to 10 if an action leads to the patient being stabilized (stage 0), -10 if the patient is dead (as defined by vitals or the number of time steps the patient has spent with sepsis), and -1 if the patient is alive but not stabilized. These values were chosen to encourage the agent to quickly stabilize patients without overtreating them.
 
 Here’s a visualization of how the four elements interact with each other:
 
@@ -29,7 +29,7 @@ Deep Q-Learning is a reinforcement learning algorithm that combines Deep Learnin
 
 We decided to use DQL over other reinforcement learning algorithms as we want our agent to learn not just from what happened in the last iteration of the simulation, but from previous iterations as well. Other algorithms like transition probability-based models are appropriate when the environment we’re interacting with conforms to the Markov property, which can be represented by the following equation:
 
-| <figure> <img src="images/transition_prob.png" width="700" height="53" />  </figure> | 
+| <figure> <img src="images/transition_prob.png" width="600" height="47" />  </figure> | 
 |:--:| 
 | *Figure 2* |
 
@@ -39,13 +39,13 @@ However, patient health isn’t like a simple game of chess. We not only want pa
 
 ## **Training**
 
-| <figure> <img src="images/DQN.png" width="700" height="562" /> </figure> | 
+| <figure> <img src="images/DQN.png" width="600" height="492" /> </figure> | 
 |:--:| 
 | *Figure 3* |
 
 Pictured above is the algorithm that Deep Q-Learning uses to update model weights and teach the agent how to perform in the environment. Before delving into the specifics of the algorithm, let’s visualize broadly what is happening: 
 
-| <figure> <img src="images/deep_Q.jpg" width="700" height="500" /> </figure> | 
+| <figure> <img src="images/deep_Q.jpg" width="600" height="334" /> </figure> | 
 |:--:| 
 | *Figure 4* |
 
@@ -67,8 +67,81 @@ An intuitive assumption is that it’d be best for our agent to reference the en
 
 Experience replay iterates through the sampled memories and uses the formula pictured above to calculate our *loss* that we will use to update model weights, for our model we used **MSE** as our loss function. Let’s break down each of the key parameters. Firstly, $$r$$ refers to the rewards received after taking the chosen action. Next the decay/discount rate, $$\gamma$$, is chosen depending on the specific problem you’re trying to solve. Since gamma weights our predictive estimates of the reward using prior information, setting a lower value for gamma (close to 0) tells the model that we only care about maximizing short-term reward, while setting a higher value (close to 1) prioritizes maximizing future/long-term gains. More concretely, if you were setting up a Deep Q-Learning algorithm to choose how to allocate your money in investments for your retirement, you’d want to set a very high value of gamma – since you’re not touching that money until the “long term,” maximizing future gains is much more important. Next are our estimated Q values $$\hat{Q}$$ represents the maximum Q-value estimated by our Target model, and $$Q$$ represents the value estimated by our prediction model. 
 
-Additionally in our model we also specify $$\alpha$$ and $$\epsilon$$. The learning rate $\alpha$ is set depending on how much the weights of the neural network are to be updated in response to our loss. $$\epsilon$$ refers to our exploration rate and allows us to balance between exploration and exploitation. When beginning training we start with an $$\epsilon$$ value close to one (exploration) that gradually decreases as we train (exploitation). At $$\epsilon = 1$$, we force the agent to take random actions in hopes that we will be able to explore our environment, while at $$\epsilon = 0$$ our agent is taking actions entirely based on prior information to exploit the environment. 
+Additionally in our model we also specify $$\alpha$$ and $$\epsilon$$. The learning rate $$\alpha$$ is set depending on how much the weights of the neural network are to be updated in response to our loss. $$\epsilon$$ refers to our exploration rate and allows us to balance between exploration and exploitation. When beginning training we start with an $$\epsilon$$ value close to one (exploration) that gradually decreases as we train (exploitation). At $$\epsilon = 1$$, we force the agent to take random actions in hopes that we will be able to explore our environment, while at $$\epsilon = 0$$ our agent is taking actions entirely based on prior information to exploit the environment. 
 
 Now that we’ve gone over updating our model weights, why did we originally initialize two models? Going back to *Figure 6* the purpose of taking the difference between our target and predicted Q-values is to stabilize training, but how does it do this? During training our prediction model is updated after every epoch, however, we do not want to use the same approach for our target model. This is because during the long training process, the agent may make many poor decisions while exploring the state space. To limit how much our prediction model is exposed to poor decision-making, we specify a period or number of epochs after which we update the weights in the target model to match the current weights in our prediction model. This allows the prediction model to learn from its mistakes while not passing those mistakes onto the target. By using two models, we can ensure that our final model is accurate while also being exposed to representative samples of data.
 
 This process of interacting with the environment, storing memories and training the model by replaying through previous experiences is how a Deep Q-Network learns and overtime the agent will hopefully find optimal policies, in our case how to treat patients. 
+
+## **Application: Deep Q-Learning for Treating Sepsis Patients**
+
+<table>
+  <tr>
+    <th>Episode</th>
+    <th>% Stabilized</th>
+    <th>Avg Time Taken</th>
+    <th>Avg Reward</th>
+  </tr>
+  <tr>
+    <td>100</td>
+    <td>0.23</td>
+    <td>9.28</td>
+    <td>-1.35</td>
+  </tr>
+  <tr>
+    <td>200</td>
+    <td>0.38</td>
+    <td>8.45</td>
+    <td>1.11</td>
+  </tr>
+  <tr>
+    <td>300</td>
+    <td>0.67</td>
+    <td>7.23</td>
+    <td>5.56</td>
+  </tr>
+  <tr>
+    <td>400</td>
+    <td>0.62</td>
+    <td>8.02</td>
+    <td>5.37</td>
+  </tr>
+  <tr>
+    <td>500</td>
+    <td>0.70</td>
+    <td>7.79</td>
+    <td>6.25</td>
+  </tr>
+  <tr>
+    <td>600</td>
+    <td>0.76</td>
+    <td>7.15</td>
+    <td>7.09</td>
+  </tr>
+  <tr>
+    <td>700</td>
+    <td>0.79</td>
+    <td>7.54</td>
+    <td>7.51</td>
+  </tr>
+  <tr>
+    <td>800</td>
+    <td>0.77</td>
+    <td>7.69</td>
+    <td>7.02</td>
+  </tr>
+  <tr>
+    <td>900</td>
+    <td>0.87</td>
+    <td>7.00</td>
+    <td>8.39</td>
+  </tr>
+  <tr>
+    <td>1000</td>
+    <td>0.91</td>
+    <td>6.16</td>
+    <td>8.83</td>
+  </tr>
+</table>
+
+
