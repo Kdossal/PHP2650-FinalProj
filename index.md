@@ -29,7 +29,7 @@ Deep Q-Learning is a reinforcement learning algorithm that combines Deep Learnin
 
 We decided to use DQL over other reinforcement learning algorithms as we want our agent to learn not just from what happened in the last iteration of the simulation, but from previous iterations as well. Other algorithms like transition probability-based models are appropriate when the environment we’re interacting with conforms to the Markov property, which can be represented by the following equation:
 
-| <figure> <img src="images/transition_prob.png" width="700" height="53" />  </figure> | 
+| <figure> <img src="images/transition_prob.png" width="600" height="47" />  </figure> | 
 |:--:| 
 | *Figure 2* |
 
@@ -39,13 +39,13 @@ However, patient health isn’t like a simple game of chess. We not only want pa
 
 ## **Training**
 
-| <figure> <img src="images/DQN.png" width="700" height="562" /> </figure> | 
+| <figure> <img src="images/DQN.png" width="600" height="492" /> </figure> | 
 |:--:| 
 | *Figure 3* |
 
 Pictured above is the algorithm that Deep Q-Learning uses to update model weights and teach the agent how to perform in the environment. Before delving into the specifics of the algorithm, let’s visualize broadly what is happening: 
 
-| <figure> <img src="images/deep_Q.jpg" width="700" height="500" /> </figure> | 
+| <figure> <img src="images/deep_Q.jpg" width="600" height="334" /> </figure> | 
 |:--:| 
 | *Figure 4* |
 
