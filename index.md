@@ -179,7 +179,7 @@ This process of interacting with the environment, storing memories and training 
 </table>
 
 <table>
-  <caption>Mortality Rates in the Real World</caption>
+  <caption>Mortality Rates in the Real World [10]</caption>
   <tr>
     <th>Time of Study</th>
     <th>SIRS</th>
