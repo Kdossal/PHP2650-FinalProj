@@ -29,7 +29,7 @@ Deep Q-Learning is a reinforcement learning algorithm that combines Deep Learnin
 
 We decided to use DQL over other reinforcement learning algorithms as we want our agent to learn not just from what happened in the last iteration of the simulation, but from previous iterations as well. Other algorithms like transition probability-based models are appropriate when the environment we’re interacting with conforms to the Markov property, which can be represented by the following equation:
 
-| <figure> <img src="images/transition_prob.png" /> </figure> | 
+| <figure> <img src="images/transition_prob.png" height: 50%; width: 50%; />  </figure> | 
 |:--:| 
 | *Figure 2* |
 
