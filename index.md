@@ -29,7 +29,7 @@ Deep Q-Learning is a reinforcement learning algorithm that combines Deep Learnin
 
 We decided to use DQL over other reinforcement learning algorithms as we want our agent to learn not just from what happened in the last iteration of the simulation, but from previous iterations as well. Other algorithms like transition probability-based models are appropriate when the environment we’re interacting with conforms to the Markov property, which can be represented by the following equation:
 
-| <figure> <img src="images/transition_prob.png" width="400" height="500" />  </figure> | 
+| <figure> <img src="images/transition_prob.png" width="700" height="53" />  </figure> | 
 |:--:| 
 | *Figure 2* |
 
@@ -39,7 +39,7 @@ However, patient health isn’t like a simple game of chess. We not only want pa
 
 ## **Training**
 
-| <figure> <img src="images/DQN.png" /> </figure> | 
+| <figure> <img src="images/DQN.png" width="700" height="562" /> </figure> | 
 |:--:| 
 | *Figure 3* |
 
@@ -61,7 +61,7 @@ Since the model is dependent on using prior information, we have to figure out h
 
 An intuitive assumption is that it’d be best for our agent to reference the entire content of the memory each time it has to make an evaluation using prior information. After all, humans tend to make wiser decisions the more experience they have to draw from. However, the issue is that at the beginning of the training process, when our model is exploring the state space, it is probably going to make a lot of bad decisions. Think about this: if you had a two-year-old choosing stocks for your retirement portfolio, their decisions would probably be as good as random at best. As such, rather than referencing the entire memory with each epoch, we choose a batch size of elements from the memory to sample for use in finding estimates of future rewards. Ideally, we choose our batch size so that it’s big enough to be representative of the memory and hopefully capture some episodes that were played fairly optimally, but small enough that the runtime of our algorithm training is reasonable. Once we have trained the agent for enough epochs such that the size of the memory is greater than the batch size, we can start sampling from the memory, and we do so for every following epoch during training. This process of randomly sampling past experiences from memory and training the model on these experiences is known as **experience replay**.
 
-| <figure> <img src="images/loss.png" /> </figure> | 
+| <figure> <img src="images/loss.png" width="500" height="168" /> </figure> | 
 |:--:| 
 | *Figure 6* |
 
