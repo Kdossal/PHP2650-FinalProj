@@ -73,6 +73,8 @@ Now that we’ve gone over updating our model weights, why did we originally ini
 
 This process of interacting with the environment, storing memories and training the model by replaying through previous experiences is how a Deep Q-Network learns and overtime the agent will hopefully find optimal policies, in our case how to treat patients. 
 
+## **Application: Deep Q-Learning for Treating Sepsis Patients**
+
 <table>
   <tr>
     <th>Episode</th>
