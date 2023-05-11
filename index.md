@@ -17,10 +17,9 @@ The most basic type of reinforcement learning has 4 elements:
 
 Here’s a visualization of how the four elements interact with each other:
 
-<figure>
-<img src="images/rl_visual.png" />
-  <figcaption>Figure 1</figcaption>
-</figure>
+| <figure> <img src="images/rl_visual.png" /> </figure> | 
+|:--:| 
+| *Figure 1* |
 
 Now that we’ve provided a broad overview of the reinforcement learning paradigm, let’s discuss the specific type of reinforcement learning we use in our project: Deep Q-Learning.
 
@@ -30,10 +29,9 @@ Deep Q-Learning is a reinforcement learning algorithm that combines Deep Learnin
 
 We decided to use DQL over other reinforcement learning algorithms as we want our agent to learn not just from what happened in the last iteration of the simulation, but from previous iterations as well. Other algorithms like transition probability-based models are appropriate when the environment we’re interacting with conforms to the Markov property, which can be represented by the following equation:
 
-<figure>
-<img src="images/transition_prob.png" />
-  <figcaption>Figure 2</figcaption>
-</figure>
+| <figure> <img src="images/transition_prob.png" /> </figure> | 
+|:--:| 
+| *Figure 2* |
 
 The Markov property says that given the current state of the environment, there’s a fixed probability of transitioning to any other state in the state space in the next time step and that it doesn’t matter what happened before the current state. Think about this formula in terms of a chess game. If the pieces are in a certain configuration, there’s a fixed set of possible moves for the next step (even though this set is very large), and it doesn’t really matter what sequence of moves got the chess board in this configuration. 
 
@@ -41,25 +39,21 @@ However, patient health isn’t like a simple game of chess. We not only want pa
 
 ## **Training**
 
-<figure>
-<img src="images/DQN.png" />
-  <figcaption>Figure 3</figcaption>
-</figure>
+| <figure> <img src="images/DQN.png" /> </figure> | 
+|:--:| 
+| *Figure 3* |
 
 Pictured above is the algorithm that Deep Q-Learning uses to update model weights and teach the agent how to perform in the environment. Before delving into the specifics of the algorithm, let’s visualize broadly what is happening: 
 
-<figure>
-<img src="images/deep_Q.png" />
-  <figcaption>Figure 4</figcaption>
-</figure>
+| <figure> <img src="images/deep_Q.png" /> </figure> | 
+|:--:| 
+| *Figure 4* |
 
 We start by initializing two networks, our target and prediction networks, using identical model architectures and randomly generated weights. We use the target network as a helper to ensure stability and prevent divergence in our prediction network during training. We also initialize a memory that with each iteration of the algorithm, will be populated with the following information: current state, action taken, reward received, state transitioned to via the action, and whether or not an episode is finished. An episode refers to one round of iterations; in our case, an episode corresponds to the treatment of a patient from start to finish, which involves multiple iterations of the algorithm or epochs. 
 
-
-<figure>
-<img src="images/network_basic.png" />
-  <figcaption>*Figure 5*</figcaption>
-</figure> 
+| <figure> <img src="images/network_basic.png" /> </figure> | 
+|:--:| 
+| *Figure 5* |
 
 As the above picture shows, in a feedforward neural network, we input the starting data (our input state), it is multiplied by weights $$W$$, then passed through an activation function to get an output from the first layer. The process repeats, with each layer taking in as input the output from the previous layer. Although we start with our weights being randomly sampled, our goal is to update these weights with each epoch so the output becomes as accurate as possible using backpropagation and gradient descent. Now let’s dive into how we update our weights for a Deep Q-learning model. 
 
