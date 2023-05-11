@@ -144,4 +144,38 @@ This process of interacting with the environment, storing memories and training 
   </tr>
 </table>
 
+<table>
+  <caption>Overall Statistics</caption>
+  <tr>
+    <th></th>
+    <th>% Stabilized</th>
+    <th>% Dead</th>
+    <th>Avg # Steps</th>
+  </tr>
+  <tr>
+    <th>SIRS Patients</th>
+    <td>0.96</td>
+    <td>0.04</td>
+    <td>4.524</td>
+  </tr>
+  <tr>
+    <th>Sepsis Patients</th>
+    <td>0.91</td>
+    <td>0.09</td>
+    <td>9.489</td>
+  </tr>
+  <tr>
+    <th>Severe Sepsis Patients</th>
+    <td>0.86</td>
+    <td>0.14</td>
+    <td>12.445</td>
+  </tr>
+  <tr>
+    <th>Sepsis Shock Patients</th>
+    <td>0.72</td>
+    <td>0.28</td>
+    <td>15.477</td>
+  </tr>
+</table>
+
 
