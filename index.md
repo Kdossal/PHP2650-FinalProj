@@ -18,7 +18,7 @@ The most basic type of reinforcement learning has 4 elements:
 Here’s a visualization of how the four elements interact with each other:
 
 | <figure> <img src="images/rl_visual.png" /> </figure> | 
-|:--:| 
+|---| 
 | *Figure 1* |
 
 Now that we’ve provided a broad overview of the reinforcement learning paradigm, let’s discuss the specific type of reinforcement learning we use in our project: Deep Q-Learning.
