@@ -314,6 +314,15 @@ Before finalizing our model, we needed to choose the optimal training time. If w
 
 Notice that after a training period of 1250 episodes, performance begins to drop off; the % stabilized reduces with each additional period of 250 episodes, and so does average reward. This is caused by *Catastrophic forgetting*, an issue in reinforcement learning that occurs when an agent begins performing poorly even while training in the same environment. This is different from overfitting as in reinforcement learning overfitting is reserved for when an agent performs poorly due to relying too heavily on the format of its training environment. From this, we determined that we would set our training time at 1250 episodes. 
 
+## **Results**
+
+After training our model we created a small program that would allow us to view in real time the patient simulation environment and the actions taken by our agent to analyze its performance and observe behaviors in its treatment. Below are some clips of our trained agent treating two randomly generated patients presenting with Septic Shock:
+
+| <figure> <img src="images/model.gif" />  </figure> | <figure> <img src="images/model.gif" />  </figure> | 
+|:--:| :--:|
+| *Figure 11* | |
+
+Additionally, in order to evaluate the performance of our model objectively, we compare the survival rates of patients who move through our simulation to real world survival rates of patients who present with different stages of sepsis. 
 
 <table>
     <caption>Our Model's Survival Statistics</caption>
