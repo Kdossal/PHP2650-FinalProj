@@ -145,9 +145,9 @@ This process of interacting with the environment, storing memories and training 
 </table>
 
 <table>
+  <caption>Overall Statistics</caption>
   <tr>
     <th></th>
-    <th>Starting Stage of Patient</th>
     <th>% Stabilized</th>
     <th>% Dead</th>
     <th>Avg # Steps</th>
@@ -177,5 +177,3 @@ This process of interacting with the environment, storing memories and training 
     <td>15.477</td>
   </tr>
 </table>
-
-
