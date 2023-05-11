@@ -58,7 +58,7 @@ We start by initializing two networks, our target and prediction networks, using
 
 <figure>
 <img src="images/network_basic.png" />
-  <figcaption>Figure 5</figcaption>
+  <figcaption>*Figure 5*</figcaption>
 </figure> 
 
 As the above picture shows, in a feedforward neural network, we input the starting data (our input state), it is multiplied by weights $$W$$, then passed through an activation function to get an output from the first layer. The process repeats, with each layer taking in as input the output from the previous layer. Although we start with our weights being randomly sampled, our goal is to update these weights with each epoch so the output becomes as accurate as possible using backpropagation and gradient descent. Now let’s dive into how we update our weights for a Deep Q-learning model. 
