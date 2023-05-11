@@ -75,6 +75,42 @@ This process of interacting with the environment, storing memories and training 
 
 ## **Application: Deep Q-Learning for Treating Sepsis Patients**
 
+Now that we’ve got the basics down, let’s take a look at our application of Deep Q-Learning to a sepsis patient simulation we created. Our idea was based on recent implementations of similar models. [4][5][6]
+
+## **The Simulation**
+
+The goal of our project is to create an agent that can take in a state containing a patient’s medical information, which includes their vitals and basic demographic information, as well as which stage of sepsis they are in, and take actions to stabilize them. We simulate patients with randomly assigned vitals, sex, age. Then, depending on which stage of sepsis they are randomly assigned to, we update their vitals based on real-world documentation of how your body responds to being in a particular stage of sepsis. [7] 
+
+The agent has five treatment options to choose from, which were determined from common treatments for sepsis. [8] These include antipyretics, antibiotics, administration of fluids, vasopressors, and oxygen therapy. We programmed our patient simulation to update a patient’s vitals after an action is taken by the agent based on how the human body typically reacts to these treatments, and what stage of sepsis the patient is in. There is a degree of fiction in how these numbers were generated, since it is impossible to model how each person will react to a given treatment *a priori*. In order to account for this randomness in how people respond to treatment, we program the simulation to update a patient’s vitals using a randomly generated number from a set of feasible values for which vitals could be updated. To make this more concrete, if a given patient is treated with an antipyretic, for example, we program the simulator to reduce their temperature value by a random number generated from the range 0 to 2 Celsius. The ranges for treatments were determined based on typical effects on patient vitals as well as a degree of creative license.
+
+After each treatment, the simulation checks the vitals of the patient and what stage of sepsis they were in in the previous time-step, and updates their diagnosis accordingly. The criteria for updating a diagnosis were drawn from the medical literature to reflect how real-world diagnoses of the various stages of sepsis are made. [9] Given this updated state of the patient, the agent is given a reward. If the patient is alive and healthy (sepsis stage “0”), the agent gets a reward of 10. If the patient is alive but still in one of the stages of sepsis, the model gets a reward of -1. If the patient passes away, the model gets a reward of -10. Using the loss function shown previously, the weights in the agent model are then updated, and the results of the current epoch are stored in the memory, and the model begins the next epoch. 
+
+## **Creating the Model**
+
+Firstly, we had to determine our gamma value. We set gamma to .99 because our goal was to maximize long-term reward. In the context of our problem, we chose gamma to solve the following issue: in the early phases of training, we wanted the model to explore the various possibilities for actions to take in a variety of situations. The model quickly found that it is sometimes more “rewarding” to kill the patient early on in the process rather than try various treatments, accumulate negative rewards if the patient is not cured, then get a larger negative reward if the patient eventually passes away. For example, if the patient passes away within 2 epochs, that leads to a reward of -11, while if the patient is treated over 10 epochs then passes away, that is a reward of -20, even though the model has learned more valuable information in the second case because it has learned what does not work. We wanted to ensure that the second scenario happened more often in the early phases of training, so we chose to set gamma close to 1.
+
+Additionally we initialize epsilon at 1 to allow for maximum exploration, then with each epoch of the algorithm, we multiply epsilon by .995 to gradually decrease it over the training period. This means that the further we are into the training process, the more the algorithm relies on using prior knowledge to guide its decisions.
+
+For creating our target and prediction models, we decided to use Tensorflow in Python to initialize our neural network architectures. Our models uses the following architecture: 
+
+| <figure> <img src="images/model.jpg" />  </figure> | 
+|:--:| 
+| *Figure 8* |
+
+with Adam chosen as our chosen gradient descent algorithm. 
+
+We chose this model architecture after systematically testing different layer widths and model depths. We started with a very basic model of two layers each of width 16. After testing that model, as well as models with similarly simple architectures, we realized that we would need to significantly increase the width of our layers. The two metrics we used to initially compare our models were *% patients stabilized* and *average final reward*. These statistics were calculated and monitored across each 100 Episode period during training. Results of our evaluation are presented below for our four best models: 
+
+| <figure> <img src="images/model_comp_rewards.png" />  </figure> | 
+|:--:| 
+| *Figure 9* |
+
+| <figure> <img src="images/model_comp_stablized.png" />  </figure> | 
+|:--:| 
+| *Figure 10* |
+
+It was clear from these results that a model architecture of 2 hidden layers, with width 256 and 32 respectively, was the best option. We’ll now refer to our best option model as “the model” for clarity. Below are the specific statistics for training this model, also including the average number of time-steps taken before each episode ended.
+
 <table>
   <tr>
     <th>Episode</th>
@@ -143,6 +179,141 @@ This process of interacting with the environment, storing memories and training 
     <td>8.83</td>
   </tr>
 </table>
+
+The final hyperparameter we had to choose was batch size. Like model depth and width, we chose batch size systematically by testing different batch sizes on our model. We chose a batch size of 64 to conduct our original model testing somewhat randomly; it is a power of 2, and we thought it would be both large enough to capture a representative sample from the memory and small enough to not extend the training time too much. However, using a batch size of 64 for our initial model evaluation meant that the training time was about half an hour for each model. As a result, we tried to systematically decrease the batch size and see if it would significantly affect the results. We report the results from a test on our final model architecture using a batch size of 32 below: 
+
+<table>
+  <tr>
+    <th>Episode</th>
+    <th>% Stabilized</th>
+    <th>Avg Time Taken</th>
+    <th>Avg Reward</th>
+  </tr>
+  <tr>
+    <td>100</td>
+    <td>0.25</td>
+    <td>9.63</td>
+    <td>-1.31</td>
+  </tr>
+  <tr>
+    <td>200</td>
+    <td>0.18</td>
+    <td>7.26</td>
+    <td>-4.60</td>
+  </tr>
+  <tr>
+    <td>300</td>
+    <td>0.16</td>
+    <td>7.57</td>
+    <td>-5.45</td>
+  </tr>
+  <tr>
+    <td>400</td>
+    <td>0.19</td>
+    <td>6.93</td>
+    <td>-4.40</td>
+  </tr>
+  <tr>
+    <td>500</td>
+    <td>0.23</td>
+    <td>6.32</td>
+    <td>-4.14</td>
+  </tr>
+  <tr>
+    <td>600</td>
+    <td>0.27</td>
+    <td>6.07</td>
+    <td>-3.25</td>
+  </tr>
+  <tr>
+    <td>700</td>
+    <td>0.18</td>
+    <td>7.21</td>
+    <td>-3.88</td>
+  </tr>
+  <tr>
+    <td>800</td>
+    <td>0.36</td>
+    <td>5.53</td>
+    <td>-2.17</td>
+  </tr>
+  <tr>
+    <td>900</td>
+    <td>0.37</td>
+    <td>7.64</td>
+    <td>-0.62</td>
+  </tr>
+  <tr>
+    <td>1000</td>
+    <td>0.30</td>
+    <td>7.17</td>
+    <td>-2.29</td>
+  </tr>
+</table>
+
+A batch size of 128 extended the training time longer than was feasible, and we did not opt to test on a batch size of 16. This is because reducing the batch size to 32 significantly impeded performance, and we hypothesized that a batch size of 16 would only exacerbate this problem. 
+
+Before finalizing our model, we needed to choose the optimal training time. If we don’t train the model for enough time, its predictive power will not be as strong, but train it too long and you run the risk of overfitting to the training environment. In order to choose the number of episodes we’d train the model for, we computed % stabilized and average final reward as moving averages over periods of 250 episodes. Results are reported in the table below: 
+
+<table>
+  <tr>
+    <th>Episode</th>
+    <th>% Stabilized</th>
+    <th>Avg Time Taken</th>
+    <th>Avg Reward</th>
+  </tr>
+  <tr>
+    <td>250</td>
+    <td>0.425</td>
+    <td>8.325</td>
+    <td>1.94</td>
+  </tr>
+  <tr>
+    <td>500</td>
+    <td>0.68</td>
+    <td>6.715</td>
+    <td>5.545</td>
+  </tr>
+  <tr>
+    <td>750</td>
+    <td>0.795</td>
+    <td>6.115</td>
+    <td>7.065</td>
+  </tr>
+  <tr>
+    <td>1000</td>
+    <td>0.855</td>
+    <td>6.185</td>
+    <td>7.445</td>
+  </tr>
+  <tr>
+    <td>1250</td>
+    <td>0.93</td>
+    <td>6.435</td>
+    <td>9.04</td>
+  </tr>
+  <tr>
+    <td>1500</td>
+    <td>0.87</td>
+    <td>6.28</td>
+    <td>8.48</td>
+  </tr>
+  <tr>
+    <td>1750</td>
+    <td>0.83</td>
+    <td>6.905</td>
+    <td>7.815</td>
+  </tr>
+  <tr>
+    <td>2000</td>
+    <td>0.81</td>
+    <td>5.835</td>
+    <td>7.69</td>
+  </tr>
+</table>
+
+Notice that after a training period of 1250 episodes, performance begins to drop off; the % stabilized reduces with each additional period of 250 episodes, and so does average reward. This is caused by *Catastrophic forgetting*, an issue in reinforcement learning that occurs when an agent begins performing poorly even while training in the same environment. This is different from overfitting as in reinforcement learning overfitting is reserved for when an agent performs poorly due to relying too heavily on the format of its training environment. From this, we determined that we would set our training time at 1250 episodes. 
+
 
 <table>
     <caption>Our Model's Survival Statistics</caption>
