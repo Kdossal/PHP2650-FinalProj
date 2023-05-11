@@ -176,3 +176,35 @@ This process of interacting with the environment, storing memories and training 
     <td>15.477</td>
   </tr>
 </table>
+
+<table>
+  <caption>Mortality Rates in the Real World</caption>
+  <tr>
+    <th>Study</th>
+    <th>SIRS</th>
+    <th>Sepsis</th>
+    <th>Severe Sepsis</th>
+    <th>Sepsis Shock</th>
+  </tr>
+  <tr>
+    <td>Rangel-Fausto et al.</td>
+    <td>7%</td>
+    <td>16%</td>
+    <td>20%</td>
+    <td>46%</td>
+  </tr>
+  <tr>
+    <td>Shapiro et al.</td>
+    <td>N/A</td>
+    <td>1.3%</td>
+    <td>9.2%</td>
+    <td>28%</td>
+  </tr>
+</table>
+In this HTML table, the mortality rates from the Rangel-Fausto et al. study and the Shapiro et al. study are presented for different patient categories (SIRS, sepsis, severe sepsis, sepsis shock). Please note that the value "N/A" is used to indicate that the mortality rate for SIRS was not reported in the Shapiro et al. study.
+
+
+
+
+
+
