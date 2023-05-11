@@ -145,9 +145,8 @@ This process of interacting with the environment, storing memories and training 
 </table>
 
 <table>
-  <caption>Overall Statistics</caption>
   <tr>
-    <th></th>
+    <th>Test</th>
     <th>% Stabilized</th>
     <th>% Dead</th>
     <th>Avg # Steps</th>
