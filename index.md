@@ -146,7 +146,7 @@ This process of interacting with the environment, storing memories and training 
 
 <table>
   <tr>
-    <th>Test</th>
+    <th>Starting State of Patient</th>
     <th>% Stabilized</th>
     <th>% Dead</th>
     <th>Avg # Steps</th>
