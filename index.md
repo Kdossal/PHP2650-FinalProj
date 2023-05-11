@@ -203,6 +203,44 @@ This process of interacting with the environment, storing memories and training 
   </tr>
 </table>
 
+## **Discussion**
+While the outcomes for patients “treated” by our model are comparable to, and in some cases better than, outcomes for real patients treated by real doctors, it’s important to remember this model is just a toy model. We attempt to simulate patient vitals so that they mirror real life to the extent possible, but there is an element of randomness in how the human body reacts to treatment that is impossible to capture with our model. Additionally, without more recent sepsis statistics to compare to, it’s hard to know whether our model truly performs better than real doctors. 
+
+Still, the results of our project are encouraging. They suggest that given a larger, richer, training set that is more reflective of the dynamics of the human body, reinforcement learning models have the potential to act as a valuable supplement to existing healthcare systems. 
+
+
+## **References**
+1] Li, Yuxi. "Deep Reinforcement Learning: An Overview." arXiv preprint arXiv:1701.07274 (2017).
+
+[2]https://brown-deep-learning.github.io/dl-website-s23/slides/lecture31.pdf 
+
+[3]https://brown-deep-learning.github.io/dl-website-s23/slides/lecture33.pdf 
+
+[4] Fatemi, Mehdi, et al. “Using Reinforcement Learning to Identify High-Risk States and Treatments in Healthcare.” Microsoft Research, 17 Aug. 2022, www.microsoft.com/en-us/research/blog/using-reinforcement-learning-to-identify-high-risk-states-and-treatments-in-healthcare/. 
+
+[5] Tsoukalas, Athanasios et al. “From data to optimal decision making: a data-driven, probabilistic machine learning approach to decision support for patients with sepsis.” JMIR medical informatics vol. 3,1 e11. 24 Feb. 2015, doi:10.2196/medinform.3445
+
+
+[6] Fatemi, Mehdi, et al. "Medical dead-ends and learning to identify high-risk states and treatments." Advances in Neural Information Processing Systems 34 (2021): 4856-4870.
+
+
+[7]Gultepe, Eren et al. “From vital signs to clinical outcomes for patients with sepsis: a machine learning basis for a clinical decision support system.” Journal of the American Medical Informatics Association : JAMIA vol. 21,2 (2014): 315-25. doi:10.1136/amiajnl-2013-001815
+
+
+[8] Polat, Gizem et al. “Sepsis and Septic Shock: Current Treatment Strategies and New Approaches.” The Eurasian journal of medicine vol. 49,1 (2017): 53-58. doi:10.5152/eurasianjmed.2017.17062
+
+
+[9] Srzić, Ivana et al. “SEPSIS DEFINITION: WHAT'S NEW  IN THE TREATMENT GUIDELINES.” Acta clinica Croatica vol. 61,Suppl 1 (2022): 67-72. doi:10.20471/acc.2022.61.s1.11
+
+
+[10]Chakraborty, Rebanta K., and Bracken Burns. "Systemic inflammatory response syndrome." (2019).
+
+
+
+
+
+
+
 
 
 
