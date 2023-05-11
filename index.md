@@ -72,3 +72,74 @@ Additionally in our model we also specify $$\alpha$$ and $$\epsilon$$. The learn
 Now that we’ve gone over updating our model weights, why did we originally initialize two models? Going back to *Figure 6* the purpose of taking the difference between our target and predicted Q-values is to stabilize training, but how does it do this? During training our prediction model is updated after every epoch, however, we do not want to use the same approach for our target model. This is because during the long training process, the agent may make many poor decisions while exploring the state space. To limit how much our prediction model is exposed to poor decision-making, we specify a period or number of epochs after which we update the weights in the target model to match the current weights in our prediction model. This allows the prediction model to learn from its mistakes while not passing those mistakes onto the target. By using two models, we can ensure that our final model is accurate while also being exposed to representative samples of data.
 
 This process of interacting with the environment, storing memories and training the model by replaying through previous experiences is how a Deep Q-Network learns and overtime the agent will hopefully find optimal policies, in our case how to treat patients. 
+
+<table>
+  <tr>
+    <th>Episode</th>
+    <th>% Stabilized</th>
+    <th>Avg Time Taken</th>
+    <th>Avg Reward</th>
+  </tr>
+  <tr>
+    <td>100</td>
+    <td>0.23</td>
+    <td>9.28</td>
+    <td>-1.35</td>
+  </tr>
+  <tr>
+    <td>200</td>
+    <td>0.38</td>
+    <td>8.45</td>
+    <td>1.11</td>
+  </tr>
+  <tr>
+    <td>300</td>
+    <td>0.67</td>
+    <td>7.23</td>
+    <td>5.56</td>
+  </tr>
+  <tr>
+    <td>400</td>
+    <td>0.62</td>
+    <td>8.02</td>
+    <td>5.37</td>
+  </tr>
+  <tr>
+    <td>500</td>
+    <td>0.70</td>
+    <td>7.79</td>
+    <td>6.25</td>
+  </tr>
+  <tr>
+    <td>600</td>
+    <td>0.76</td>
+    <td>7.15</td>
+    <td>7.09</td>
+  </tr>
+  <tr>
+    <td>700</td>
+    <td>0.79</td>
+    <td>7.54</td>
+    <td>7.51</td>
+  </tr>
+  <tr>
+    <td>800</td>
+    <td>0.77</td>
+    <td>7.69</td>
+    <td>7.02</td>
+  </tr>
+  <tr>
+    <td>900</td>
+    <td>0.87</td>
+    <td>7.00</td>
+    <td>8.39</td>
+  </tr>
+  <tr>
+    <td>1000</td>
+    <td>0.91</td>
+    <td>6.16</td>
+    <td>8.83</td>
+  </tr>
+</table>
+
+
