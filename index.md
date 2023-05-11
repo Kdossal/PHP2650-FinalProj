@@ -25,17 +25,10 @@ $$X - Y = \sin(x)$$
 | 1 | 4 | 5 |
 | 2 | 3 | 6 |
 
-test 
 
 <figure>
 <img src="Media/patient-treatment.gif" />
 </figure>
-
-check
-
-![](https://github.com/Kdossal/PHP2650-FinalProj/blob/main/Media/patient-treatment.gif)
-
-test
 
 <table>
 <colgroup>
