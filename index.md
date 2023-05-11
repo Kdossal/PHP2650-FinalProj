@@ -45,7 +45,7 @@ However, patient health isn’t like a simple game of chess. We not only want pa
 
 Pictured above is the algorithm that Deep Q-Learning uses to update model weights and teach the agent how to perform in the environment. Before delving into the specifics of the algorithm, let’s visualize broadly what is happening: 
 
-| <figure> <img src="images/deep_Q.png" /> </figure> | 
+| <figure> <img src="images/deep_Q.jpg" width="700" height="500" /> </figure> | 
 |:--:| 
 | *Figure 4* |
 
