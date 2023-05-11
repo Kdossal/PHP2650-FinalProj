@@ -10,7 +10,7 @@
 
 kadl $$X = Y \epsilon$$ asdfasd
 
-a^[a](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3932455/#:~:text=The%20SIRS%20criteria%20are%20heart,or%20%3E10%25%20bands)
+[a](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3932455/#:~:text=The%20SIRS%20criteria%20are%20heart,or%20%3E10%25%20bands)
 
 adfaskdka
 
