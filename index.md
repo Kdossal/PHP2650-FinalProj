@@ -1,4 +1,4 @@
-# **What is Reinforcement Learning? **
+# **What is Reinforcement Learning?**
 
 We’ve previously discussed supervised learning, which is used for tasks where our data is labeled or has true values, and unsupervised learning, which is used to discover patterns or relationships in unlabeled data. The last major pillar of machine learning is Reinforcement Learning, which is used to solve problems for which we don’t have examples of gold-standard outcomes. Unlike supervised learning, where we train our model using comparisons to true outcome values, reinforcement learning involves the use of numerical rewards and punishments to adjust our model. 
 
