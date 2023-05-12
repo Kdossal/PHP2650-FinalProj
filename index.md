@@ -113,66 +113,66 @@ It was clear from these results that a model architecture of 2 hidden layers, wi
   <tr>
     <th>Episode</th>
     <th>% Stabilized</th>
-    <th>Avg Time Taken</th>
-    <th>Avg Reward</th>
+    <th>Avg. # Steps Taken</th>
+    <th>Avg. Reward</th>
   </tr>
   <tr>
     <td>100</td>
-    <td>0.23</td>
+    <td>23%</td>
     <td>9.28</td>
     <td>-1.35</td>
   </tr>
   <tr>
     <td>200</td>
-    <td>0.38</td>
+    <td>38%</td>
     <td>8.45</td>
     <td>1.11</td>
   </tr>
   <tr>
     <td>300</td>
-    <td>0.67</td>
+    <td>67%</td>
     <td>7.23</td>
     <td>5.56</td>
   </tr>
   <tr>
     <td>400</td>
-    <td>0.62</td>
+    <td>62%</td>
     <td>8.02</td>
     <td>5.37</td>
   </tr>
   <tr>
     <td>500</td>
-    <td>0.70</td>
+    <td>70%</td>
     <td>7.79</td>
     <td>6.25</td>
   </tr>
   <tr>
     <td>600</td>
-    <td>0.76</td>
+    <td>76%</td>
     <td>7.15</td>
     <td>7.09</td>
   </tr>
   <tr>
     <td>700</td>
-    <td>0.79</td>
+    <td>79%</td>
     <td>7.54</td>
     <td>7.51</td>
   </tr>
   <tr>
     <td>800</td>
-    <td>0.77</td>
+    <td>77%</td>
     <td>7.69</td>
     <td>7.02</td>
   </tr>
   <tr>
     <td>900</td>
-    <td>0.87</td>
+    <td>87%</td>
     <td>7.00</td>
     <td>8.39</td>
   </tr>
   <tr>
     <td>1000</td>
-    <td>0.91</td>
+    <td>91%</td>
     <td>6.16</td>
     <td>8.83</td>
   </tr>
@@ -184,66 +184,66 @@ The final hyperparameter we had to choose was batch size. Like model depth and w
   <tr>
     <th>Episode</th>
     <th>% Stabilized</th>
-    <th>Avg Time Taken</th>
-    <th>Avg Reward</th>
+    <th>Avg. # Steps Taken</th>
+    <th>Avg. Reward</th>
   </tr>
   <tr>
     <td>100</td>
-    <td>0.25</td>
+    <td>25%</td>
     <td>9.63</td>
     <td>-1.31</td>
   </tr>
   <tr>
     <td>200</td>
-    <td>0.18</td>
+    <td>18%</td>
     <td>7.26</td>
     <td>-4.60</td>
   </tr>
   <tr>
     <td>300</td>
-    <td>0.16</td>
+    <td>16%</td>
     <td>7.57</td>
     <td>-5.45</td>
   </tr>
   <tr>
     <td>400</td>
-    <td>0.19</td>
+    <td>19%</td>
     <td>6.93</td>
     <td>-4.40</td>
   </tr>
   <tr>
     <td>500</td>
-    <td>0.23</td>
+    <td>23%</td>
     <td>6.32</td>
     <td>-4.14</td>
   </tr>
   <tr>
     <td>600</td>
-    <td>0.27</td>
+    <td>27%</td>
     <td>6.07</td>
     <td>-3.25</td>
   </tr>
   <tr>
     <td>700</td>
-    <td>0.18</td>
+    <td>18%</td>
     <td>7.21</td>
     <td>-3.88</td>
   </tr>
   <tr>
     <td>800</td>
-    <td>0.36</td>
+    <td>36%</td>
     <td>5.53</td>
     <td>-2.17</td>
   </tr>
   <tr>
     <td>900</td>
-    <td>0.37</td>
+    <td>37%</td>
     <td>7.64</td>
     <td>-0.62</td>
   </tr>
   <tr>
     <td>1000</td>
-    <td>0.30</td>
+    <td>30%</td>
     <td>7.17</td>
     <td>-2.29</td>
   </tr>
@@ -257,24 +257,24 @@ Before finalizing our model, we needed to choose the optimal training time. If w
   <tr>
     <th>Episode</th>
     <th>% Stabilized</th>
-    <th>Avg Time Taken</th>
-    <th>Avg Reward</th>
+    <th>Avg. # Steps Taken</th>
+    <th>Avg. Reward</th>
   </tr>
   <tr>
     <td>250</td>
-    <td>0.425</td>
+    <td>43%</td>
     <td>8.325</td>
     <td>1.94</td>
   </tr>
   <tr>
     <td>500</td>
-    <td>0.68</td>
+    <td>68%</td>
     <td>6.715</td>
     <td>5.545</td>
   </tr>
   <tr>
     <td>750</td>
-    <td>0.795</td>
+    <td>80%</td>
     <td>6.115</td>
     <td>7.065</td>
   </tr>
@@ -286,25 +286,25 @@ Before finalizing our model, we needed to choose the optimal training time. If w
   </tr>
   <tr>
     <td>1250</td>
-    <td>0.93</td>
+    <td>93%</td>
     <td>6.435</td>
     <td>9.04</td>
   </tr>
   <tr>
     <td>1500</td>
-    <td>0.87</td>
+    <td>87%</td>
     <td>6.28</td>
     <td>8.48</td>
   </tr>
   <tr>
     <td>1750</td>
-    <td>0.83</td>
+    <td>83%</td>
     <td>6.905</td>
     <td>7.815</td>
   </tr>
   <tr>
     <td>2000</td>
-    <td>0.81</td>
+    <td>81%</td>
     <td>5.835</td>
     <td>7.69</td>
   </tr>
@@ -328,7 +328,7 @@ Additionally, to evaluate the performance of our model objectively, we compare t
     <th> Presenting Stage of Sepsis </th>
     <th>Stabilization Rate</th>
     <th>Mortality Rate</th>
-    <th>Avg. # Time Steps</th>
+    <th>Avg. # Steps Taken</th>
   </tr>
   <tr>
     <th>SIRS</th>
