@@ -91,13 +91,11 @@ Firstly, we had to determine our gamma value. We set gamma to .99 because our go
 
 Additionally, we initialize epsilon at 1 to allow for maximum exploration, then with each epoch of the algorithm, we multiply epsilon by .995 to gradually decrease it over the training period. This means that the further we are into the training process, the more the algorithm relies on using prior knowledge to guide its decisions.
 
-For creating our target and prediction models, we decided to use Tensorflow in Python to initialize our neural network architectures. Our models use the following architecture: 
+For creating our target and prediction models, we decided to use Tensorflow in Python to initialize our neural network architectures. Our models use the following architecture, with Adam chosen as our chosen gradient descent algorithm: 
 
 | <figure> <img src="images/model.jpg" width="600" height="123" />  </figure> | 
 |:--:| 
-| *Figure 7* |
-
-with Adam chosen as our chosen gradient descent algorithm. 
+| *Figure 7* | 
 
 We chose this model architecture after systematically testing different layer widths and model depths. We started with a very basic model of two layers each of width 16. After testing that model, as well as models with similarly simple architectures, we realized that we would need to significantly increase the width of our layers. The two metrics we used to initially compare our models were *% patients stabilized* and *average final reward*. These statistics were calculated and monitored across each 100 Episode period during training. Results of our evaluation are presented below for our four best models: 
 
