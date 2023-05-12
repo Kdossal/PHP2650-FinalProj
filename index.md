@@ -407,10 +407,10 @@ However, the broad results of our project are still very much encouraging. They 
 [4] Fatemi, Mehdi, et al. "Medical dead-ends and learning to identify high-risk states and treatments." Advances in Neural Information Processing Systems 34 (2021): 4856-4870.
 
 
-[5]Gultepe, Eren et al. “From vital signs to clinical outcomes for patients with sepsis: a machine learning basis for a clinical decision support system.” Journal of the American Medical Informatics Association : JAMIA vol. 21,2 (2014): 315-25. doi:10.1136/amiajnl-2013-001815
+[5] Gultepe, Eren et al. “From vital signs to clinical outcomes for patients with sepsis: a machine learning basis for a clinical decision support system.” Journal of the American Medical Informatics Association : JAMIA vol. 21,2 (2014): 315-25. doi:10.1136/amiajnl-2013-001815
 
 [6] Polat, Gizem et al. “Sepsis and Septic Shock: Current Treatment Strategies and New Approaches.” The Eurasian journal of medicine vol. 49,1 (2017): 53-58. doi:10.5152/eurasianjmed.2017.17062
 
 [7] Srzić, Ivana et al. “SEPSIS DEFINITION: WHAT'S NEW IN THE TREATMENT GUIDELINES.” Acta clinica Croatica vol. 61,Suppl 1 (2022): 67-72. doi:10.20471/acc.2022.61.s1.11
 
-[8]Chakraborty, Rebanta K., and Bracken Burns. "Systemic inflammatory response syndrome." (2019).
+[8] Chakraborty, Rebanta K., and Bracken Burns. "Systemic inflammatory response syndrome." (2019).
