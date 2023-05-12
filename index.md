@@ -328,33 +328,33 @@ Additionally, to evaluate the performance of our model objectively, we compare t
     <caption>Our Model's Survival Statistics</caption>
   <tr>
     <th> Presenting Stage of Sepsis </th>
-    <th>% Stabilized</th>
-    <th>% Dead</th>
-    <th>Avg # Steps</th>
+    <th>Stabilization Rate</th>
+    <th>Mortality Rate</th>
+    <th>Avg. # Time Steps</th>
   </tr>
   <tr>
     <th>SIRS</th>
-    <td>0.96</td>
-    <td>0.04</td>
-    <td>4.524</td>
+    <td>96%</td>
+    <td>4%</td>
+    <td>4.5</td>
   </tr>
   <tr>
     <th>Sepsis</th>
     <td>0.91</td>
     <td>0.09</td>
-    <td>9.489</td>
+    <td>9.5</td>
   </tr>
   <tr>
     <th>Severe Sepsis</th>
-    <td>0.86</td>
-    <td>0.14</td>
-    <td>12.445</td>
+    <td>86%</td>
+    <td>14%</td>
+    <td>12.4</td>
   </tr>
   <tr>
     <th>Septic Shock </th>
-    <td>0.72</td>
-    <td>0.28</td>
-    <td>15.477</td>
+    <td>72%</td>
+    <td>28%</td>
+    <td>15.5</td>
   </tr>
 </table>
 
@@ -383,7 +383,7 @@ Additionally, to evaluate the performance of our model objectively, we compare t
   </tr>
 </table>
 
-As seen by both the clips and the overall results, our agent is fairly successful at treating patients and in general chooses optimal treatments to prevent patient death and stabilize the patient as quickly as possible. However, the agent does still fail to stabilize some patients as seen in *Figure 11*, in this clip the agent is unable to maintain the patient’s blood pressure within a healthy range for too long, eventually leading to their death. 
+As seen by both the clips and the overall results, our agent is fairly successful at treating patients and in general chooses optimal treatments to prevent patient death and stabilize the patient as quickly as possible. However, the agent does still fail to stabilize some patients as seen in *Figure 11*, in this clip the agent is unable to maintain the patient’s blood pressure within a healthy range for too long, eventually leading to their death. We can also see this in the average number of time steps taken in each episode where patients presenting with more severe cases of sepsis take dramatically longer to be stabilized.
 
 ## **Discussion**
 
