@@ -280,7 +280,7 @@ Before finalizing our model, we needed to choose the optimal training time. If w
   </tr>
   <tr>
     <td>1000</td>
-    <td>0.855</td>
+    <td>86%</td>
     <td>6.185</td>
     <td>7.445</td>
   </tr>
@@ -338,8 +338,8 @@ Additionally, to evaluate the performance of our model objectively, we compare t
   </tr>
   <tr>
     <th>Sepsis</th>
-    <td>0.91</td>
-    <td>0.09</td>
+    <td>91%</td>
+    <td>9%</td>
     <td>9.5</td>
   </tr>
   <tr>
