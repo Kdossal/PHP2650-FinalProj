@@ -42,7 +42,7 @@ However, patient health isn’t like a simple game of chess. We not only want pa
 |:--:| 
 | *Figure 3* |
 
-Pictured above is the algorithm that Deep Q-Learning uses to update model weights and teach the agent how to perform in the environment. Before delving into the specifics of the algorithm, let’s visualize broadly what is happening: 
+Pictured above in *Figure 3* is the algorithm that Deep Q-Learning uses to update model weights and teach the agent how to perform in the environment. Before delving into the specifics of the algorithm, let’s visualize broadly what is happening: 
 
 | <figure> <img src="images/deep_Q.jpg" width="600" height="334" /> </figure> | 
 |:--:| 
@@ -67,7 +67,7 @@ An intuitive assumption is that it’d be best for our agent to reference the en
 
 Experience replay iterates through the sampled memories and uses the formula pictured above to calculate our *loss* that we will use to update model weights, for our model we used **MSE** as our loss function. Let’s break down each of the key parameters. Firstly, $$r$$ refers to the rewards received after taking the chosen action. Next, the decay/discount rate, $$\gamma$$, is chosen depending on the specific problem you’re trying to solve. Since gamma weights our predictive estimates of the reward using prior information, setting a lower value for gamma (close to 0) tells the model that we only care about maximizing short-term reward, while setting a higher value (close to 1) prioritizes maximizing future/long-term gains. More concretely, if you were setting up a Deep Q-Learning algorithm to choose how to allocate your money in investments for your retirement, you’d want to set a very high value of gamma – since you’re not touching that money until the “long term,” maximizing future gains is much more important. Next are our estimated Q values $$\hat{Q}$$ represents the maximum Q-value estimated by our Target model, and $$Q$$ represents the value estimated by our prediction model. 
 
-Additionally in our model, we also specify $$\alpha$$ and $$\epsilon$$. The learning rate $\alpha$ is set depending on how much the weights of the neural network are to be updated in response to our loss. $$\epsilon$$ refers to our exploration rate and allows us to balance between exploration and exploitation. When beginning training we start with an $$\epsilon$$ value close to one (exploration) that gradually decreases as we train (exploitation). At $$\epsilon = 1$$, we force the agent to take random actions in hopes that we will be able to explore our environment, while at $$\epsilon = 0$$ our agent is taking actions entirely based on prior information to exploit the environment. 
+Additionally in our model, we also specify $$\alpha$$ and $$\epsilon$$. The learning rate $$\alpha$$ is set depending on how much the weights of the neural network are to be updated in response to our loss. $$\epsilon$$ refers to our exploration rate and allows us to balance between exploration and exploitation. When beginning training we start with an $$\epsilon$$ value close to one (exploration) that gradually decreases as we train (exploitation). At $$\epsilon = 1$$, we force the agent to take random actions in hopes that we will be able to explore our environment, while at $$\epsilon = 0$$ our agent is taking actions entirely based on prior information to exploit the environment. 
 
 Now that we’ve gone over updating our model weights, why did we originally initialize two models? Going back to *Figure 5* the purpose of taking the difference between our target and predicted Q-values is to stabilize training, but how does it do this? During training our prediction model is updated after every epoch, however, we do not want to use the same approach for our target model. This is because, during the long training process, the agent may make many poor decisions while exploring the state space. To limit how much our prediction model is exposed to poor decision-making, we specify a period or number of epochs after which we update the weights in the target model to match the current weights in our prediction model. This allows the prediction model to learn from its mistakes while not passing those mistakes onto the target. By using two models, we can ensure that our final model is accurate while also being exposed to representative samples of data.
 
@@ -79,11 +79,11 @@ Now that we’ve got the basics down, let’s take a look at our application of 
 
 ## **The Simulation**
 
-The goal of our project is to create an agent that can take in a state containing a patient’s medical information, which includes their vitals and basic demographic information, as well as which stage of sepsis they are in, and take actions to stabilize them. We simulate patients with randomly assigned vitals, sex, and age. Then, depending on which stage of sepsis they are randomly assigned to, we update their vitals based on real-world documentation of how their body responds to being in a particular stage of sepsis. [7] 
+The goal of our project is to create an agent that can take in a state containing a patient’s medical information, which includes their vitals and basic demographic information, as well as which stage of sepsis they are in, and take actions to stabilize them. We simulate patients with randomly assigned vitals, sex, and age. Then, depending on which stage of sepsis they are randomly assigned to, we update their vitals based on real-world documentation. [7] 
 
 The agent has five treatment options to choose from, which were determined from common treatments for sepsis. [8] These include antipyretics, antibiotics, administration of fluids, vasopressors, and oxygen therapy. We programmed our patient simulation to update a patient’s vitals after an action is taken by the agent based on how the human body typically reacts to these treatments, and what stage of sepsis the patient is in. There is a degree of fiction in how these numbers were generated since it is impossible to model how each person will react to a given treatment *a priori*. To account for this randomness in how people respond to treatment, we program the simulation to update a patient’s vitals using a randomly generated number from a set of feasible values for which vitals could be updated. To make this more concrete, if a given patient is treated with an antipyretic, for example, we program the simulator to reduce their temperature value by a random number generated from the range 1 to 2 Celsius. The ranges for treatments were determined based on typical effects on patient vitals as well as a degree of creative license.
 
-After each treatment, the simulation checks the vitals of the patient and what stage of sepsis they were in in the previous time-step and updates their diagnosis accordingly. The criteria for updating a diagnosis were drawn from the medical literature to reflect how real-world diagnoses of the various stages of sepsis are made. [9] Given this updated state of the patient, the agent is given a reward. If the patient is alive and healthy (sepsis stage “0”), the agent gets a reward of 10. If the patient is alive but still in one of the stages of sepsis, the model gets a reward of -1. If the patient passes away, the model gets a reward of -10. Using the loss function shown previously, the weights in the agent model are then updated, the results of the current epoch are stored in the memory, and the model begins the next epoch. 
+After each treatment, the simulation checks the vitals of the patient and what stage of sepsis they were in in the previous time-step and updates their diagnosis accordingly. The criteria for updating a diagnosis were drawn from the medical literature to reflect how real-world diagnoses of the various stages of sepsis are made. [9] Given this updated state of the patient, the agent is given a reward. If the patient is alive and stablized, the agent gets a reward of 10. If the patient is alive but still in one of the stages of sepsis, the model gets a reward of -1. If the patient passes away, the model gets a reward of -10. Using the loss function shown previously, the weights in the agent model are then updated, the results of the current epoch are stored in the memory, and the model begins the next epoch. 
 
 ## **Creating the Model**
 
@@ -93,7 +93,7 @@ Additionally, we initialize epsilon at 1 to allow for maximum exploration, then 
 
 For creating our target and prediction models, we decided to use Tensorflow in Python to initialize our neural network architectures. Our models use the following architecture: 
 
-| <figure> <img src="images/model.jpg" />  </figure> | 
+| <figure> <img src="images/model.jpg" width="600" height="123" />  </figure> | 
 |:--:| 
 | *Figure 7* |
 
@@ -101,11 +101,11 @@ with Adam chosen as our chosen gradient descent algorithm.
 
 We chose this model architecture after systematically testing different layer widths and model depths. We started with a very basic model of two layers each of width 16. After testing that model, as well as models with similarly simple architectures, we realized that we would need to significantly increase the width of our layers. The two metrics we used to initially compare our models were *% patients stabilized* and *average final reward*. These statistics were calculated and monitored across each 100 Episode period during training. Results of our evaluation are presented below for our four best models: 
 
-| <figure> <img src="images/model_comp_rewards.jpg" />  </figure> | 
+| <figure> <img src="images/model_comp_rewards.jpg" width="550" height="383" />  </figure> | 
 |:--:| 
 | *Figure 8* |
 
-| <figure> <img src="images/model_comp_stablized.jpg" />  </figure> | 
+| <figure> <img src="images/model_comp_stablized.jpg" width="550" height="383" />  </figure> | 
 |:--:| 
 | *Figure 9* |
 
@@ -318,7 +318,7 @@ Notice that after a training period of 1250 episodes, performance begins to drop
 
 After training our model we created a small program that would allow us to view in real-time the patient simulation environment and the actions taken by our agent to analyze its performance and observe behaviors in its treatment. Below are two clips of our trained agent treating two randomly generated patients presenting with Septic Shock:
 
-| <figure> <img src="media/treatment.gif" />  </figure> | <figure> <img src="media/treatment-fail.gif" />  </figure> |
+| <figure> <img src="Media/treatment.gif" />  </figure> | <figure> <img src="Media/treatment-fail.gif" />  </figure> |
 |:--:|:--:|
 | *Figure 10* | *Figure 11* |
 
@@ -327,31 +327,31 @@ Additionally, to evaluate the performance of our model objectively, we compare t
 <table>
     <caption>Our Model's Survival Statistics</caption>
   <tr>
-    <th>Starting State of Patient</th>
+    <th> Presenting Stage of Sepsis </th>
     <th>% Stabilized</th>
     <th>% Dead</th>
     <th>Avg # Steps</th>
   </tr>
   <tr>
-    <th>SIRS Patients</th>
+    <th>SIRS</th>
     <td>0.96</td>
     <td>0.04</td>
     <td>4.524</td>
   </tr>
   <tr>
-    <th>Sepsis Patients</th>
+    <th>Sepsis</th>
     <td>0.91</td>
     <td>0.09</td>
     <td>9.489</td>
   </tr>
   <tr>
-    <th>Severe Sepsis Patients</th>
+    <th>Severe Sepsis</th>
     <td>0.86</td>
     <td>0.14</td>
     <td>12.445</td>
   </tr>
   <tr>
-    <th>Sepsis Shock Patients</th>
+    <th>Septic Shock </th>
     <td>0.72</td>
     <td>0.28</td>
     <td>15.477</td>
@@ -365,7 +365,7 @@ Additionally, to evaluate the performance of our model objectively, we compare t
     <th>SIRS</th>
     <th>Sepsis</th>
     <th>Severe Sepsis</th>
-    <th>Sepsis Shock</th>
+    <th>Septic Shock</th>
   </tr>
   <tr>
     <td>1995</td>
@@ -385,8 +385,6 @@ Additionally, to evaluate the performance of our model objectively, we compare t
 
 As seen by both the clips and the overall results, our agent is fairly successful at treating patients and in general chooses optimal treatments to prevent patient death and stabilize the patient as quickly as possible. However, the agent does still fail to stabilize some patients as seen in *Figure 11*, in this clip the agent is unable to maintain the patient’s blood pressure within a healthy range for too long, eventually leading to their death. 
 
-unable to prevent the patient from spending too to spend too many time-steps with severe 
-
 ## **Discussion**
 
 While the outcomes for patients “treated” by our agent are comparable to, and in some cases better than, outcomes for real patients treated by real doctors, it’s important to remember this model is just a toy model. We attempt to simulate patient vitals so that they mirror real life to the extent possible, but there is an element of randomness in how the human body reacts to treatment that is impossible to capture with our simulation. Additionally, the actions taken by an agent or doctor in real life are far more complex than the simplified set we used in this example.
@@ -395,7 +393,7 @@ However, the broad results of our project are still very much encouraging. They 
 
 # **Appendix**
 
-[Here](https://github.com/Kdossal/PHP2650-FinalProj/blob/main/Code/PatientTreatment.ipynb) is the link to the main Jupyter Notebook we used to create our sepsis patient simulation and DQL Model, as well as code used to train, test, and visualize our agent’s performance. For this project, we chose to use **Python** since Tesorflow is originally built with Python in mind making training our model much more efficient. Additionally, Python was chosen as our DQN model and simulation both heavily made use of Object Oriented Programming (OOP). To run this code in R, you would need to install and use the Tensorflow package, along with reworking the Python code to either use OOP in R or by using a different data structure like lists to keep track of the simulation environment and DQN model.
+[**Here**](https://github.com/Kdossal/PHP2650-FinalProj/blob/main/Code/PatientTreatment.ipynb) is the link to the main Jupyter Notebook we used to create our sepsis patient simulation and DQL Model, as well as code used to train, test, and visualize our agent’s performance. For this project, we chose to use **Python** since Tesorflow is originally built with Python in mind making training our model much more efficient. Additionally, Python was chosen as our DQN model and simulation both heavily made use of Object Oriented Programming (OOP). To run this code in R, you would need to install and use the Tensorflow package, along with reworking the Python code to either use OOP in R or by using a different data structure like lists to keep track of the simulation environment and DQN model.
 
 
 # **References**
