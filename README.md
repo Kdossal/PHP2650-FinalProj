@@ -1,7 +1,7 @@
 # PHP2650 Final Project
 
 ## Sepsis Patient Treatment Using Reinforcement Learning 
-For our final project, we have chosen to explore Reinforcement Learning by creating a Deep Q-Learning model that determines the optimal treatment policies for patients with sepsis. Our goal is to develop an agent that can learn optimal treatment policies over time by simulating a patient with sepsis in a controlled environment.
+For our final project, we chose to explore Reinforcement Learning by creating a Deep Q-Learning model that determines the optimal treatment policies for patients with sepsis. Our goal is to develop an agent that can learn optimal treatment policies over time by simulating a patient with sepsis in a controlled environment.
 
 To create our patient simulation environment, we used real-world data and vitals to understand the effects of sepsis on patients. The simulation we created is only a toy model that takes in limited patient information and simulates only a small amount of the effects of sepsis. The simulation generates a random patient with sepsis, including age, sex, and stage of sepsis, and then uses these to generate beginning vitals for the patient. This information is then used as our state input for our Deep Q-Network.
 
