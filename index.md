@@ -308,7 +308,7 @@ Before finalizing our model, we needed to choose the optimal training time. If w
   </tr>
 </table>
 
-Notice that after a training period of 1250 episodes, performance begins to drop off; the % stabilized reduces with each additional period of 250 episodes, and so does the average reward. This is caused by *Catastrophic forgetting*, an issue in reinforcement learning that occurs when an agent begins performing poorly even while training in the same environment. This is different from overfitting as in reinforcement learning overfitting is reserved for when an agent performs poorly due to relying too heavily on the format of its training environment. From this, we determined that we would set our training time at 1250 episodes. 
+Notice that after a training period of 1250 episodes, performance begins to drop off; the % stabilized reduces with each additional period of 250 episodes, and so does the average reward. This is most likely caused by *Catastrophic forgetting*, an issue in reinforcement learning that occurs when an agent begins performing poorly even while training in the same environment. This is different from overfitting as in reinforcement learning overfitting is reserved for when an agent performs poorly due to relying too heavily on the format of its training environment. From this, we determined that we would set our training time at 1250 episodes. 
 
 ## **Results**
 
