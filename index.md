@@ -97,11 +97,11 @@ with Adam chosen as our chosen gradient descent algorithm.
 
 We chose this model architecture after systematically testing different layer widths and model depths. We started with a very basic model of two layers each of width 16. After testing that model, as well as models with similarly simple architectures, we realized that we would need to significantly increase the width of our layers. The two metrics we used to initially compare our models were *% patients stabilized* and *average final reward*. These statistics were calculated and monitored across each 100 Episode period during training. Results of our evaluation are presented below for our four best models: 
 
-| <figure> <img src="images/model_comp_rewards.png" />  </figure> | 
+| <figure> <img src="images/model_comp_rewards.jpg" />  </figure> | 
 |:--:| 
 | *Figure 8* |
 
-| <figure> <img src="images/model_comp_stablized.png" />  </figure> | 
+| <figure> <img src="images/model_comp_stablized.jpg" />  </figure> | 
 |:--:| 
 | *Figure 9* |
 
