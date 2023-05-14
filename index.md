@@ -1,14 +1,18 @@
-# **What is Reinforcement Learning? **
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css" integrity="sha384-yFRtMMDnQtDRO8rLpMIKrtPCD5jdktao2TV19YiZYWMDkUR5GQZR/NOVTdquEx1j" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.js" integrity="sha384-9Nhn55MVVN0/4OFx7EE5kpFBPsEMZxKTCnA+4fqDmg12eCTqGi6+BB2LjY8brQxJ" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
 
-We’ve previously discussed supervised learning, which is used for tasks where our data is labeled or has true values, and unsupervised learning, which is used to discover patterns or relationships in unlabeled data. The last major pillar of machine learning is Reinforcement Learning, which is used to solve problems for which we don’t have examples of gold-standard outcomes. Unlike supervised learning, where we train our model using comparisons to true outcome values, reinforcement learning involves the use of numerical rewards and punishments to adjust our model. 
+# **What is Reinforcement Learning?**
 
-For our final project, we created a reinforcement learning model that takes in medical information from simulated sepsis patients and makes a series of treatment decisions to stabilize the patient so that they do not die of septic shock. Before discussing the specifics of our model implementation, let’s review some reinforcement learning basics in the context of the problem we want to solve with our project. 
+We’ve previously discussed supervised learning, used for tasks where our data is labeled or has true values, and unsupervised learning, used to discover patterns or relationships in unlabeled data. The last major pillar of machine learning is Reinforcement Learning, which is used to solve problems for which we don’t have examples of gold-standard outcomes. Unlike supervised learning, where we train our model using comparisons to true outcome values, reinforcement learning involves the use of numerical rewards and punishments to train our model. 
+
+For our final project, we created a reinforcement learning model using Deep Q-Learning that takes in medical information from simulated sepsis patients and makes a series of treatment decisions to stabilize said patient. Before discussing the specifics of our model implementation, let’s review some reinforcement learning basics in the context of the problem we want to solve with our project. 
 
 The most basic type of reinforcement learning has 4 elements: 
-**Agent:** The agent is the decision-making model that interacts with our environment. In our case, this is our Deep Q-Network that takes in information about an environment, called a state, and selects an action based on the information in that state. This agent will then over time learn from the feedback it receives in the form of rewards or punishments.
-**Environment:** The environment in our model is the simulated patient, with a state that contains information concerning patient vitals (such as their blood pressure, temperature, or heart rate), as well as patient demographics when they enter the treatment facility. After each action the agent takes, the environment’s state changes accordingly. 
-**Actions:** A set of actions that the agent can take. In our case, the model can take five possible actions: administer antipyretics, antibiotics, fluids, vasopressors, or oxygen therapy. The goal of reinforcement learning is to train the model such that the action it takes in response to an input state is the optimal action for that situation. For example, if the input state to our model was a patient with a high fever, our goal would be for the model to take the action: administer antipyretics. 
-**Reward:** After an action transitions the environment from state $$s$$ to state $$s’$$, the model receives a reward (or punishment) depending on whether $$s’$$ is a desired outcome or not. In our model, the reward is set to 10 if an action leads to the patient being stabilized (stage 0), -10 if the patient is dead (as defined by vitals or the number of time steps the patient has spent with sepsis), and -1 if the patient is alive but not stabilized. These values were chosen to encourage the agent to quickly stabilize patients without overtreating them. [1] [2]
+1. **Agent:** The agent is the decision-making model that interacts with our environment. In our case, this is our Deep Q-Network that takes in information about an environment, called a state, and selects an action based on the information in that state. This agent will then over time learn from the feedback it receives in the form of rewards or punishments.
+2. **Environment:** The environment in our model is the simulated patient, with a state that contains information concerning patient vitals (such as their blood pressure, temperature, or heart rate), as well as patient demographics when they enter the treatment facility. After each action the agent takes, the environment’s state changes accordingly. 
+3. **Actions:** A set of actions that the agent can take. In our case, the model can take five possible actions: administer antipyretics, antibiotics, fluids, vasopressors, or oxygen therapy. The goal of reinforcement learning is to train the model such that the action it takes in response to an input state is the optimal action for that situation. For example, if the input state to our model was a patient with a high fever, our goal would be for the model to take the action: administer antipyretics. 
+4. **Reward:** After an action transitions the environment from state $$s$$ to state $$s’$$, the model receives a reward (or punishment) depending on whether $$s’$$ is a desired outcome or not. In our model, the reward is set to 10 if an action leads to the patient being stabilized (stage 0), -10 if the patient is dead (as defined by vitals or the number of time steps the patient has spent with sepsis), and -1 if the patient is alive but not stabilized. These values were chosen to encourage the agent to quickly stabilize patients without overtreating. [1] [2]
 
 Here’s a visualization of how the four elements interact with each other:
 
@@ -38,7 +42,7 @@ However, patient health isn’t like a simple game of chess. We not only want pa
 |:--:| 
 | *Figure 3* |
 
-Pictured above is the algorithm that Deep Q-Learning uses to update model weights and teach the agent how to perform in the environment. Before delving into the specifics of the algorithm, let’s visualize broadly what is happening: 
+Pictured above in *Figure 3* is the algorithm that Deep Q-Learning uses to update model weights and teach the agent how to perform in the environment. Before delving into the specifics of the algorithm, let’s visualize broadly what is happening: 
 
 | <figure> <img src="images/deep_Q.jpg" width="600" height="334" /> </figure> | 
 |:--:| 
@@ -63,7 +67,7 @@ An intuitive assumption is that it’d be best for our agent to reference the en
 
 Experience replay iterates through the sampled memories and uses the formula pictured above to calculate our *loss* that we will use to update model weights, for our model we used **MSE** as our loss function. Let’s break down each of the key parameters. Firstly, $$r$$ refers to the rewards received after taking the chosen action. Next, the decay/discount rate, $$\gamma$$, is chosen depending on the specific problem you’re trying to solve. Since gamma weights our predictive estimates of the reward using prior information, setting a lower value for gamma (close to 0) tells the model that we only care about maximizing short-term reward, while setting a higher value (close to 1) prioritizes maximizing future/long-term gains. More concretely, if you were setting up a Deep Q-Learning algorithm to choose how to allocate your money in investments for your retirement, you’d want to set a very high value of gamma – since you’re not touching that money until the “long term,” maximizing future gains is much more important. Next are our estimated Q values $$\hat{Q}$$ represents the maximum Q-value estimated by our Target model, and $$Q$$ represents the value estimated by our prediction model. 
 
-Additionally in our model, we also specify $$\alpha$$ and $$\epsilon$$. The learning rate $\alpha$ is set depending on how much the weights of the neural network are to be updated in response to our loss. $$\epsilon$$ refers to our exploration rate and allows us to balance between exploration and exploitation. When beginning training we start with an $$\epsilon$$ value close to one (exploration) that gradually decreases as we train (exploitation). At $$\epsilon = 1$$, we force the agent to take random actions in hopes that we will be able to explore our environment, while at $$\epsilon = 0$$ our agent is taking actions entirely based on prior information to exploit the environment. 
+Additionally in our model, we also specify $$\alpha$$ and $$\epsilon$$. The learning rate $$\alpha$$ is set depending on how much the weights of the neural network are to be updated in response to our loss. $$\epsilon$$ refers to our exploration rate and allows us to balance between exploration and exploitation. When beginning training we start with an $$\epsilon$$ value close to one (exploration) that gradually decreases as we train (exploitation). At $$\epsilon = 1$$, we force the agent to take random actions in hopes that we will be able to explore our environment, while at $$\epsilon = 0$$ our agent is taking actions entirely based on prior information to exploit the environment. 
 
 Now that we’ve gone over updating our model weights, why did we originally initialize two models? Going back to *Figure 5* the purpose of taking the difference between our target and predicted Q-values is to stabilize training, but how does it do this? During training our prediction model is updated after every epoch, however, we do not want to use the same approach for our target model. This is because, during the long training process, the agent may make many poor decisions while exploring the state space. To limit how much our prediction model is exposed to poor decision-making, we specify a period or number of epochs after which we update the weights in the target model to match the current weights in our prediction model. This allows the prediction model to learn from its mistakes while not passing those mistakes onto the target. By using two models, we can ensure that our final model is accurate while also being exposed to representative samples of data.
 
@@ -75,11 +79,11 @@ Now that we’ve got the basics down, let’s take a look at our application of 
 
 ## **The Simulation**
 
-The goal of our project is to create an agent that can take in a state containing a patient’s medical information, which includes their vitals and basic demographic information, as well as which stage of sepsis they are in, and take actions to stabilize them. We simulate patients with randomly assigned vitals, sex, and age. Then, depending on which stage of sepsis they are randomly assigned to, we update their vitals based on real-world documentation of how their body responds to being in a particular stage of sepsis. [7] 
+The goal of our project is to create an agent that can take in a state containing a patient’s medical information, which includes their vitals and basic demographic information, as well as which stage of sepsis they are in, and take actions to stabilize them. We simulate patients with randomly assigned vitals, sex, and age. Then, depending on which stage of sepsis they are randomly assigned to, we update their vitals based on real-world documentation. [7] 
 
 The agent has five treatment options to choose from, which were determined from common treatments for sepsis. [8] These include antipyretics, antibiotics, administration of fluids, vasopressors, and oxygen therapy. We programmed our patient simulation to update a patient’s vitals after an action is taken by the agent based on how the human body typically reacts to these treatments, and what stage of sepsis the patient is in. There is a degree of fiction in how these numbers were generated since it is impossible to model how each person will react to a given treatment *a priori*. To account for this randomness in how people respond to treatment, we program the simulation to update a patient’s vitals using a randomly generated number from a set of feasible values for which vitals could be updated. To make this more concrete, if a given patient is treated with an antipyretic, for example, we program the simulator to reduce their temperature value by a random number generated from the range 1 to 2 Celsius. The ranges for treatments were determined based on typical effects on patient vitals as well as a degree of creative license.
 
-After each treatment, the simulation checks the vitals of the patient and what stage of sepsis they were in in the previous time-step and updates their diagnosis accordingly. The criteria for updating a diagnosis were drawn from the medical literature to reflect how real-world diagnoses of the various stages of sepsis are made. [9] Given this updated state of the patient, the agent is given a reward. If the patient is alive and healthy (sepsis stage “0”), the agent gets a reward of 10. If the patient is alive but still in one of the stages of sepsis, the model gets a reward of -1. If the patient passes away, the model gets a reward of -10. Using the loss function shown previously, the weights in the agent model are then updated, the results of the current epoch are stored in the memory, and the model begins the next epoch. 
+After each treatment, the simulation checks the vitals of the patient and what stage of sepsis they were in in the previous time-step and updates their diagnosis accordingly. The criteria for updating a diagnosis were drawn from the medical literature to reflect how real-world diagnoses of the various stages of sepsis are made. [9] Given this updated state of the patient, the agent is given a reward. If the patient is alive and stablized, the agent gets a reward of 10. If the patient is alive but still in one of the stages of sepsis, the model gets a reward of -1. If the patient passes away, the model gets a reward of -10. Using the loss function shown previously, the weights in the agent model are then updated, the results of the current epoch are stored in the memory, and the model begins the next epoch. 
 
 ## **Creating the Model**
 
@@ -87,21 +91,19 @@ Firstly, we had to determine our gamma value. We set gamma to .99 because our go
 
 Additionally, we initialize epsilon at 1 to allow for maximum exploration, then with each epoch of the algorithm, we multiply epsilon by .995 to gradually decrease it over the training period. This means that the further we are into the training process, the more the algorithm relies on using prior knowledge to guide its decisions.
 
-For creating our target and prediction models, we decided to use Tensorflow in Python to initialize our neural network architectures. Our models use the following architecture: 
+For creating our target and prediction models, we decided to use Tensorflow in Python to initialize our neural network architectures. Our models use the following architecture, with Adam chosen as our chosen gradient descent algorithm: 
 
-| <figure> <img src="images/model.jpg" />  </figure> | 
+| <figure> <img src="images/model.jpg" width="600" height="123" />  </figure> | 
 |:--:| 
-| *Figure 7* |
-
-with Adam chosen as our chosen gradient descent algorithm. 
+| *Figure 7* | 
 
 We chose this model architecture after systematically testing different layer widths and model depths. We started with a very basic model of two layers each of width 16. After testing that model, as well as models with similarly simple architectures, we realized that we would need to significantly increase the width of our layers. The two metrics we used to initially compare our models were *% patients stabilized* and *average final reward*. These statistics were calculated and monitored across each 100 Episode period during training. Results of our evaluation are presented below for our four best models: 
 
-| <figure> <img src="images/model_comp_rewards.png" />  </figure> | 
+| <figure> <img src="images/model_comp_rewards.jpg" width="550" height="383" />  </figure> | 
 |:--:| 
 | *Figure 8* |
 
-| <figure> <img src="images/model_comp_stablized.png" />  </figure> | 
+| <figure> <img src="images/model_comp_stablized.jpg" width="550" height="383" />  </figure> | 
 |:--:| 
 | *Figure 9* |
 
@@ -111,66 +113,66 @@ It was clear from these results that a model architecture of 2 hidden layers, wi
   <tr>
     <th>Episode</th>
     <th>% Stabilized</th>
-    <th>Avg Time Taken</th>
-    <th>Avg Reward</th>
+    <th>Avg. # Steps Taken</th>
+    <th>Avg. Reward</th>
   </tr>
   <tr>
     <td>100</td>
-    <td>0.23</td>
+    <td>23%</td>
     <td>9.28</td>
     <td>-1.35</td>
   </tr>
   <tr>
     <td>200</td>
-    <td>0.38</td>
+    <td>38%</td>
     <td>8.45</td>
     <td>1.11</td>
   </tr>
   <tr>
     <td>300</td>
-    <td>0.67</td>
+    <td>67%</td>
     <td>7.23</td>
     <td>5.56</td>
   </tr>
   <tr>
     <td>400</td>
-    <td>0.62</td>
+    <td>62%</td>
     <td>8.02</td>
     <td>5.37</td>
   </tr>
   <tr>
     <td>500</td>
-    <td>0.70</td>
+    <td>70%</td>
     <td>7.79</td>
     <td>6.25</td>
   </tr>
   <tr>
     <td>600</td>
-    <td>0.76</td>
+    <td>76%</td>
     <td>7.15</td>
     <td>7.09</td>
   </tr>
   <tr>
     <td>700</td>
-    <td>0.79</td>
+    <td>79%</td>
     <td>7.54</td>
     <td>7.51</td>
   </tr>
   <tr>
     <td>800</td>
-    <td>0.77</td>
+    <td>77%</td>
     <td>7.69</td>
     <td>7.02</td>
   </tr>
   <tr>
     <td>900</td>
-    <td>0.87</td>
+    <td>87%</td>
     <td>7.00</td>
     <td>8.39</td>
   </tr>
   <tr>
     <td>1000</td>
-    <td>0.91</td>
+    <td>91%</td>
     <td>6.16</td>
     <td>8.83</td>
   </tr>
@@ -182,66 +184,66 @@ The final hyperparameter we had to choose was batch size. Like model depth and w
   <tr>
     <th>Episode</th>
     <th>% Stabilized</th>
-    <th>Avg Time Taken</th>
-    <th>Avg Reward</th>
+    <th>Avg. # Steps Taken</th>
+    <th>Avg. Reward</th>
   </tr>
   <tr>
     <td>100</td>
-    <td>0.25</td>
+    <td>25%</td>
     <td>9.63</td>
     <td>-1.31</td>
   </tr>
   <tr>
     <td>200</td>
-    <td>0.18</td>
+    <td>18%</td>
     <td>7.26</td>
     <td>-4.60</td>
   </tr>
   <tr>
     <td>300</td>
-    <td>0.16</td>
+    <td>16%</td>
     <td>7.57</td>
     <td>-5.45</td>
   </tr>
   <tr>
     <td>400</td>
-    <td>0.19</td>
+    <td>19%</td>
     <td>6.93</td>
     <td>-4.40</td>
   </tr>
   <tr>
     <td>500</td>
-    <td>0.23</td>
+    <td>23%</td>
     <td>6.32</td>
     <td>-4.14</td>
   </tr>
   <tr>
     <td>600</td>
-    <td>0.27</td>
+    <td>27%</td>
     <td>6.07</td>
     <td>-3.25</td>
   </tr>
   <tr>
     <td>700</td>
-    <td>0.18</td>
+    <td>18%</td>
     <td>7.21</td>
     <td>-3.88</td>
   </tr>
   <tr>
     <td>800</td>
-    <td>0.36</td>
+    <td>36%</td>
     <td>5.53</td>
     <td>-2.17</td>
   </tr>
   <tr>
     <td>900</td>
-    <td>0.37</td>
+    <td>37%</td>
     <td>7.64</td>
     <td>-0.62</td>
   </tr>
   <tr>
     <td>1000</td>
-    <td>0.30</td>
+    <td>30%</td>
     <td>7.17</td>
     <td>-2.29</td>
   </tr>
@@ -255,66 +257,66 @@ Before finalizing our model, we needed to choose the optimal training time. If w
   <tr>
     <th>Episode</th>
     <th>% Stabilized</th>
-    <th>Avg Time Taken</th>
-    <th>Avg Reward</th>
+    <th>Avg. # Steps Taken</th>
+    <th>Avg. Reward</th>
   </tr>
   <tr>
     <td>250</td>
-    <td>0.425</td>
+    <td>43%</td>
     <td>8.325</td>
     <td>1.94</td>
   </tr>
   <tr>
     <td>500</td>
-    <td>0.68</td>
+    <td>68%</td>
     <td>6.715</td>
     <td>5.545</td>
   </tr>
   <tr>
     <td>750</td>
-    <td>0.795</td>
+    <td>80%</td>
     <td>6.115</td>
     <td>7.065</td>
   </tr>
   <tr>
     <td>1000</td>
-    <td>0.855</td>
+    <td>86%</td>
     <td>6.185</td>
     <td>7.445</td>
   </tr>
   <tr>
     <td>1250</td>
-    <td>0.93</td>
+    <td>93%</td>
     <td>6.435</td>
     <td>9.04</td>
   </tr>
   <tr>
     <td>1500</td>
-    <td>0.87</td>
+    <td>87%</td>
     <td>6.28</td>
     <td>8.48</td>
   </tr>
   <tr>
     <td>1750</td>
-    <td>0.83</td>
+    <td>83%</td>
     <td>6.905</td>
     <td>7.815</td>
   </tr>
   <tr>
     <td>2000</td>
-    <td>0.81</td>
+    <td>81%</td>
     <td>5.835</td>
     <td>7.69</td>
   </tr>
 </table>
 
-Notice that after a training period of 1250 episodes, performance begins to drop off; the % stabilized reduces with each additional period of 250 episodes, and so does the average reward. This is caused by *Catastrophic forgetting*, an issue in reinforcement learning that occurs when an agent begins performing poorly even while training in the same environment. This is different from overfitting as in reinforcement learning overfitting is reserved for when an agent performs poorly due to relying too heavily on the format of its training environment. From this, we determined that we would set our training time at 1250 episodes. 
+Notice that after a training period of 1250 episodes, performance begins to drop off; the % stabilized reduces with each additional period of 250 episodes, and so does the average reward. This is most likely caused by *Catastrophic forgetting*, an issue in reinforcement learning that occurs when an agent begins performing poorly even while training in the same environment. This is different from overfitting as in reinforcement learning overfitting is reserved for when an agent performs poorly due to relying too heavily on the format of its training environment. From this, we determined that we would set our training time at 1250 episodes. 
 
 ## **Results**
 
 After training our model we created a small program that would allow us to view in real-time the patient simulation environment and the actions taken by our agent to analyze its performance and observe behaviors in its treatment. Below are two clips of our trained agent treating two randomly generated patients presenting with Septic Shock:
 
-| <figure> <img src="media/treatment.gif" />  </figure> | <figure> <img src="media/treatment-fail.gif" />  </figure> |
+| <figure> <img src="Media/treatment.gif" />  </figure> | <figure> <img src="Media/treatment-fail.gif" />  </figure> |
 |:--:|:--:|
 | *Figure 10* | *Figure 11* |
 
@@ -323,34 +325,34 @@ Additionally, to evaluate the performance of our model objectively, we compare t
 <table>
     <caption>Our Model's Survival Statistics</caption>
   <tr>
-    <th>Starting State of Patient</th>
-    <th>% Stabilized</th>
-    <th>% Dead</th>
-    <th>Avg # Steps</th>
+    <th> Presenting Stage of Sepsis </th>
+    <th>Stabilization Rate</th>
+    <th>Mortality Rate</th>
+    <th>Avg. # Steps Taken</th>
   </tr>
   <tr>
-    <th>SIRS Patients</th>
-    <td>0.96</td>
-    <td>0.04</td>
-    <td>4.524</td>
+    <th>SIRS</th>
+    <td>96%</td>
+    <td>4%</td>
+    <td>4.5</td>
   </tr>
   <tr>
-    <th>Sepsis Patients</th>
-    <td>0.91</td>
-    <td>0.09</td>
-    <td>9.489</td>
+    <th>Sepsis</th>
+    <td>91%</td>
+    <td>9%</td>
+    <td>9.5</td>
   </tr>
   <tr>
-    <th>Severe Sepsis Patients</th>
-    <td>0.86</td>
-    <td>0.14</td>
-    <td>12.445</td>
+    <th>Severe Sepsis</th>
+    <td>86%</td>
+    <td>14%</td>
+    <td>12.4</td>
   </tr>
   <tr>
-    <th>Sepsis Shock Patients</th>
-    <td>0.72</td>
-    <td>0.28</td>
-    <td>15.477</td>
+    <th>Septic Shock </th>
+    <td>72%</td>
+    <td>28%</td>
+    <td>15.5</td>
   </tr>
 </table>
 
@@ -361,7 +363,7 @@ Additionally, to evaluate the performance of our model objectively, we compare t
     <th>SIRS</th>
     <th>Sepsis</th>
     <th>Severe Sepsis</th>
-    <th>Sepsis Shock</th>
+    <th>Septic Shock</th>
   </tr>
   <tr>
     <td>1995</td>
@@ -379,9 +381,7 @@ Additionally, to evaluate the performance of our model objectively, we compare t
   </tr>
 </table>
 
-As seen by both the clips and the overall results, our agent is fairly successful at treating patients and in general chooses optimal treatments to prevent patient death and stabilize the patient as quickly as possible. However, the agent does still fail to stabilize some patients as seen in *Figure 11*, in this clip the agent is unable to maintain the patient’s blood pressure within a healthy range for too long, eventually leading to their death. 
-
-unable to prevent the patient from spending too to spend too many time-steps with severe 
+As seen by both the clips and the overall results, our agent is fairly successful at treating patients and in general chooses optimal treatments to prevent patient death and stabilize the patient as quickly as possible. However, the agent does still fail to stabilize some patients as seen in *Figure 11*, in this clip the agent is unable to maintain the patient’s blood pressure within a healthy range for too long, eventually leading to their death. We can also see this in the average number of time steps taken in each episode where patients presenting with more severe cases of sepsis take dramatically longer to be stabilized.
 
 ## **Discussion**
 
@@ -391,7 +391,7 @@ However, the broad results of our project are still very much encouraging. They 
 
 # **Appendix**
 
-[Here](https://github.com/Kdossal/PHP2650-FinalProj/blob/main/Code/PatientTreatment.ipynb) is the link to the main Jupyter Notebook we used to create our sepsis patient simulation and DQL Model, as well as code used to train, test, and visualize our agent’s performance. For this project, we chose to use **Python** since Tesorflow is originally built with Python in mind making training our model much more efficient. Additionally, Python was chosen as our DQN model and simulation both heavily made use of Object Oriented Programming (OOP). To run this code in R, you would need to install and use the Tensorflow package, along with reworking the Python code to either use OOP in R or by using a different data structure like lists to keep track of the simulation environment and DQN model.
+[**Here**](https://github.com/Kdossal/PHP2650-FinalProj/blob/main/Code/PatientTreatment.ipynb) is the link to the main Jupyter Notebook we used to create our sepsis patient simulation and DQL Model, as well as code used to train, test, and visualize our agent’s performance. For this project, we chose to use **Python** since Tesorflow is originally built with Python in mind making training our model much more efficient. Additionally, Python was chosen as our DQN model and simulation both heavily made use of Object Oriented Programming (OOP). To run this code in R, you would need to install and use the Tensorflow package, along with reworking the Python code to either use OOP in R or by using a different data structure like lists to keep track of the simulation environment and DQN model.
 
 
 # **References**
@@ -405,10 +405,10 @@ However, the broad results of our project are still very much encouraging. They 
 [4] Fatemi, Mehdi, et al. "Medical dead-ends and learning to identify high-risk states and treatments." Advances in Neural Information Processing Systems 34 (2021): 4856-4870.
 
 
-[5]Gultepe, Eren et al. “From vital signs to clinical outcomes for patients with sepsis: a machine learning basis for a clinical decision support system.” Journal of the American Medical Informatics Association : JAMIA vol. 21,2 (2014): 315-25. doi:10.1136/amiajnl-2013-001815
+[5] Gultepe, Eren et al. “From vital signs to clinical outcomes for patients with sepsis: a machine learning basis for a clinical decision support system.” Journal of the American Medical Informatics Association : JAMIA vol. 21,2 (2014): 315-25. doi:10.1136/amiajnl-2013-001815
 
 [6] Polat, Gizem et al. “Sepsis and Septic Shock: Current Treatment Strategies and New Approaches.” The Eurasian journal of medicine vol. 49,1 (2017): 53-58. doi:10.5152/eurasianjmed.2017.17062
 
 [7] Srzić, Ivana et al. “SEPSIS DEFINITION: WHAT'S NEW IN THE TREATMENT GUIDELINES.” Acta clinica Croatica vol. 61,Suppl 1 (2022): 67-72. doi:10.20471/acc.2022.61.s1.11
 
-[8]Chakraborty, Rebanta K., and Bracken Burns. "Systemic inflammatory response syndrome." (2019).
+[8] Chakraborty, Rebanta K., and Bracken Burns. "Systemic inflammatory response syndrome." (2019).
